@@ -1,0 +1,7 @@
+Rewrite the readme.txt
+Figure out how to respond using files
+Figure out how to respond to different requests (such as loading the favicon file)
+Figure out how when a button is click it takes you to a funciton in this file where you console log something
+Figure out how to load different webpages for different requests
+
+How I suggest it: Google Learning Server-Side JavaScript with Node.js

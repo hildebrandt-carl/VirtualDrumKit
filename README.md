@@ -1,26 +1,10 @@
-# Team RAD - Lab 2
+# Team RAD - Final Project
 
-Advanced Embedded Systems Course
+This is the RAD teams final project
 
 ## About
 
-
-### Prerequisites
-
-You will need to install wizzimote-contiki:
-
-```
-git clone https://suman2135@bitbucket.org/suman2135/wizzimote-contiki.git
-```
-
-Move the libmsp430.so into /usr/lib
-
-Once this is installed you will need multiple packages for completing and running Contiki. They can be installed using:
-
-```
-sudo apt-get install build-essential binutils-msp430 gcc-msp430 msp430-libc msp430mcu mspdebug gcc-arm-none-eabi gdb-arm-none-eabi ant libncurses5-dev
-```
-
+The final demo project will be a drum kit which can be played autonomously. The drum kit will be controlled using virutal reality or a website.
 
 ## Authors
 

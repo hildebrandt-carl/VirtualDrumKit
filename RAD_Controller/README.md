@@ -1,26 +1,10 @@
-# Team RAD - Lab 2
+# Team RAD - Controller
 
-Advanced Embedded Systems Course
+This is the RAD teams controller. 
 
 ## About
 
-
-### Prerequisites
-
-You will need to install wizzimote-contiki:
-
-```
-git clone https://suman2135@bitbucket.org/suman2135/wizzimote-contiki.git
-```
-
-Move the libmsp430.so into /usr/lib
-
-Once this is installed you will need multiple packages for completing and running Contiki. They can be installed using:
-
-```
-sudo apt-get install build-essential binutils-msp430 gcc-msp430 msp430-libc msp430mcu mspdebug gcc-arm-none-eabi gdb-arm-none-eabi ant libncurses5-dev
-```
-
+The RAD teams controller will be running on a single board computer. The computer will be connected to the internet and be able to run this python script. This script will connect to the server and wait for information from the server. The information will then be forwared using serial to the wizzimote.
 
 ## Authors
 
