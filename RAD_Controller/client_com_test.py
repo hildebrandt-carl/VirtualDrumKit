@@ -1,12 +1,12 @@
 import socket
 
+
 ipAddress = '160.119.248.176'
 
 ipAddress = '127.0.0.1'
-
 portNumber = 4242
 
-print("Starting RAD_Team's controller")
+print("Starting RAD_Team's web connection")
 print("Attempting to connect to: %s:%d" % (ipAddress, portNumber))
 
 sock = socket.socket()
@@ -18,8 +18,8 @@ except:
     exit(0)
 
 print("Connection success")
-print("Telling the server that its the controller connecting")
-sock.send("controller")
+print("Telling the server that its the web connecting")
+sock.send("web")
 
 print("Waiting for a responce")
 return_string = sock.recv(256)
@@ -31,12 +31,9 @@ else:
     exit(0)
 
 
-print("Waiting for commands from server")
-x = 0
-while(1):
-    print sock.recv(256)
-    #sock.send("ack%d" % x)
-    #x = x + 1
+print("Sending two messages to the server")
+sock.send("First Message")
+sock.send("Seccond Message")
 
 print("Closing connection")
 sock.close()
