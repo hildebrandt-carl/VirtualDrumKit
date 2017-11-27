@@ -1,20 +1,53 @@
 var http = require("http");
+var sys = require("sys");
+var url = require("url");
+var path = require("path");
+var fs = require("fs");
 
-var server = http.createServer(function(request, response) {
-    //var uri = url.parse(request.url).pathname;
-    console.log(request.url);
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write("<!DOCTYPE html>");
-    response.write("<html>");
-    response.write("<head>");
-    response.write("<title>Hello World Page</title>");
-    response.write("</head>");
-    response.write("<body>");
-    response.write("Hello World!");
-    response.write("</body>");
-    response.write("<button class='button' onclick=''> Green </button>");
-    response.write("</html>");
-    response.end();
+var server = http.createServer(function(req, resp) 
+{
+    var uri = url.parse(req.url).pathname;
+    console.log(req.url);
+	if(uri === "/BASIC.html")
+	{
+		fs.readFile("./BASIC.html", function (error, pgResp)
+		{
+		    console.log("currently in function Basic");
+			if(error) {
+			    resp.writeHead(404);
+			    resp.write('Contents you are looking are Not Found');
+			}
+			else {
+			    console.log("currently else or printing Basic");
+			    resp.writeHead(200, { 'Content-Type': 'text/html' });
+			    resp.write(pgResp);
+			}
+		    resp.end();
+		});
+	}
+    else if (uri === "/testing.html") {
+        fs.readFile("./testing.html", function (error, pgResp) {
+            console.log("currently in function testing");
+            if (error) {
+                resp.writeHead(404);
+                resp.write('Contents you are looking are Not Found');
+            }
+            else {
+                console.log("currently else or printing Testing");
+                resp.writeHead(200, { 'Content-Type': 'text/html' });
+                resp.write(pgResp);
+            }
+            resp.end();
+        });
+    }
+    else if (uri === "/favicon.ico") {
+	    console.log("Currently in Favicon.ico");
+	}
+	else
+	{
+        console.log("interesting, second else: " + uri);
+	    resp.end();
+	};
 });
 
 server.listen(4343);

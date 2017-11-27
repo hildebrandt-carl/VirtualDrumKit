@@ -2,8 +2,6 @@ import socket
 
 ipAddress = '160.119.248.176'
 
-ipAddress = '127.0.0.1'
-
 portNumber = 4242
 
 print("Starting RAD_Team's controller")
@@ -35,8 +33,6 @@ print("Waiting for commands from server")
 x = 0
 while(1):
     print sock.recv(256)
-    #sock.send("ack%d" % x)
-    #x = x + 1
 
 print("Closing connection")
 sock.close()
