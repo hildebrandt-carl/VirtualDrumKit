@@ -6,7 +6,7 @@
 #define HIGH_HAT 6
 #define CRASH 7
 
-#define MY_ID HI_TOM //Change this to change the instrument!
+#define MY_ID FLOOR_TOM //Change this to change the instrument!
 
 //xxxx_H is the bit that should be 1 to hit the drum
 //xxxx_R is the bit that should be 1 to retract from the drum

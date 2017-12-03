@@ -10,6 +10,8 @@ static struct etimer et;
 
 // Functions
 void hitDrum();
+void unhitDrum();
+static uint8_t hitLeft = 0x0;
 
 PROCESS(main_process, "Main Task");
 AUTOSTART_PROCESSES(&main_process);
@@ -53,6 +55,10 @@ PROCESS_THREAD(main_process, ev, data)
 		// TEST HITTING THE DRUM
 		G_ON();
 		hitDrum();
+		etimer_set(&et, 1*CLOCK_SECOND); //wait 1 second for now
+		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+
+		unhitDrum();
 		G_OFF();
 		etimer_set(&et, 5*CLOCK_SECOND); //hit every 5 seconds for now
 		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
@@ -97,7 +103,6 @@ PROCESS_THREAD(main_process, ev, data)
 
 void hitDrum(){
 	// Code based off ThatOneTeam's code from last year
-	static uint8_t hitLeft = 0x0;
 	if (hitLeft)
         {
                 LEFT_PORT |= LEFT_H;
@@ -110,11 +115,8 @@ void hitDrum(){
                 RIGHT_PORT &= ~RIGHT_R;
                 Y_ON();
         }
-
-        // Delay?
-	etimer_set(&et, 0.001*CLOCK_SECOND);
-	PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-
+}
+void unhitDrum(){
         //retract strike
         if (hitLeft)
         {
