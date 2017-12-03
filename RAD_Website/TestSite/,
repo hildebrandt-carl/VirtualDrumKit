@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<link rel="icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIRTeAP+EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAREAAAICAAABAQAAIgIAABABAAAgACABEAAQAgAAIAEAABECAAACEQAAASIAAAAQAAABEAAAABIAAAIQAAABAiAAAhAAAAEAIAAiAQAAEAAgACABAAAQAAICIAEQARAAAiIAABABAAAAIgAAEBAAAAAgAAAREAAAAAAAAAF+PgAAvrwAAL29AADZ2wAA28sAAOPjAAD35wAA8+cAAOnnAADtywAA3dsAAN6ZAACePQAAvz0AAH98AAB//gAA" type="image/x-icon" />
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIRTeAP+EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAREAAAICAAABAQAAIgIAABABAAAgACABEAAQAgAAIAEAABECAAACEQAAASIAAAAQAAABEAAAABIAAAIQAAABAiAAAhAAAAEAIAAiAQAAEAAgACABAAAQAAICIAEQARAAAiIAABABAAAAIgAAEBAAAAAgAAAREAAAAAAAAAF+PgAAvrwAAL29AADZ2wAA28sAAOPjAAD35wAA8+cAAOnnAADtywAA3dsAAN6ZAACePQAAvz0AAH98AAB//gAA" type="image/x-icon" />
+<style>
+p.center 
+{
+	text-align: center;
+	color:black;
+	font-size: 32px;
+}
+
+.button 
+{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.btn-group .buttonBorder 
+{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 24px 42px;
+	width: 125px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+	float: left;
+	border: 1px solid black;
+}
+
+.button1 
+{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+
+.button1:hover 
+{
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button2 
+{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.button2:hover 
+{
+    background-color: #008CBA;
+    color: white;
+}
+
+.button3 
+{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #f44336;
+}
+
+.button3:hover 
+{
+    background-color: #f44336;
+    color: white;
+}
+
+.button4 
+{
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
+.button4:hover {background-color: #e7e7e7;}
+
+.button5 
+{
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+}
+
+.button5:hover 
+{
+    background-color: #555555;
+    color: white;
+}
+
+.button6 
+{
+    background-color: black;
+    color: green;
+    border: 2px solid #555555;
+}
+
+.button6:hover 
+{
+    background-color: #555555;
+    color: white;
+}
+
+.button7 
+{
+    background-color: black;
+    color: green;
+    border: 2px solid #555555;
+}
+
+.button7:hover 
+{
+    background-color: #555555;
+    color: white;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+</style>
+<!-- START OF HTML PAGE -->
+</head>
+<body>
+
+<div class="topnav">
+  <a class="active" href="#home" onclick="myFunction3()">Home</a>
+  <a href="https://github.com/hildebrandt-carl/RAD_VirtualReality">Our Repository</a>
+  <a href="https://github.com/hildebrandt-carl/RAD_Website">Contact</a>
+  <a href="https://github.com/hildebrandt-carl/RAD_Controller">About</a>
+</div>
+
+
+<div style="text-align:center;background-color:#99ff99;color:black;padding:20px;">
+<h3>RAD Team</h3>
+</div>
+
+
+<form action="" method="post" enctype="multipart/form-data">
+	<input type="submit" name="send" value="Create Pi1" 
+	style="font-size:7pt;color:white;background-color:green;border:2px solid #336600; width:100px; height:100px;"/>
+	<input type="submit" name="send" value="Create Pi2" 
+	style="font-size:7pt;color:white;background-color:red;border:2px solid #336600; width:100px; height:100px;"/>
+	<input type="submit" name="send" value="Create Pi3" 
+	style="font-size:7pt;color:white;background-color:blue;border:2px solid #336600; width:100px; height:100px;"/>
+	<input type="submit" name="send" value="Create Pi4" 
+	style="font-size:7pt;color:black;background-color:yellow;border:2px solid #336600; width:100px; height:100px;"/>
+</form>
+
+
+<button class="button button1"
+onclick="myFunction()">
+Drum1
+</button>
+
+<button class="button button2"
+onclick="myFunction2()">
+Drum2
+</button>
+
+<button class="button button3" 
+onclick="myFunction3()">
+Drum3
+</button>
+
+<button class="button button4"
+onclick="strike()">
+Drum4
+</button>
+
+<button class="button button5"
+onclick="strike()">
+Drum5
+</button>
+<p id="demo"></p>
+
+
+<script>
+function myFunction() {
+	document.getElementById("demo").innerHTML = "Hello JavaScript!";
+	document.getElementById("demo").style.fontSize = "25px"; 
+    document.getElementById("demo").style.fontSize = "25px"; 
+    document.getElementById("demo").style.color = "red";
+    document.getElementById("demo").style.backgroundColor = "green";        
+}
+</script>
+
+<script>
+function myFunction2() {
+	document.getElementById("demo").innerHTML = "Hello Carl!";
+	document.getElementById("demo").style.fontSize = "25px"; 
+    document.getElementById("demo").style.fontSize = "25px"; 
+    document.getElementById("demo").style.color = "white";
+    document.getElementById("demo").style.backgroundColor = "black";        
+}
+</script>
+
+<script>
+function myFunction3() {
+	document.getElementById("demo").innerHTML = "Hello Rebecca!";
+	document.getElementById("demo").style.fontSize = "25px"; 
+    document.getElementById("demo").style.fontSize = "25px"; 
+    document.getElementById("demo").style.color = "yellow";
+    document.getElementById("demo").style.backgroundColor = "blue";        
+}
+</script>
+
+<script>
+function strike()
+{
+	alert("Hello\nHow are you?");
+}
+</script>
+
+
+</body>
+</html>

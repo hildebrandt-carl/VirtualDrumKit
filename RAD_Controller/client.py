@@ -1,6 +1,6 @@
 import socket
 
-ipAddress = '160.119.248.176'
+ipAddress = '160.119.248.28'
 
 portNumber = 4242
 
