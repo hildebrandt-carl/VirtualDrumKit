@@ -1,3 +1,6 @@
+#ifndef MESSAGE_H
+#define MESSAGE_H
+
 // CONTROL BYTE (byte 0)
 #define ACK    (1<<7)
 #define NACK   (1<<6)
@@ -15,3 +18,5 @@
 #define CYMBAL (1<<1)
 
 // VCLK INT (bytes 2-5)
+
+#endif

@@ -1,4 +1,5 @@
-obj/utils.o: utils.c header.h ../../../wizzimote-contiki/core/contiki.h \
+obj/utils.o: utils.c utils.h header.h \
+ ../../../wizzimote-contiki/core/contiki.h \
  ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h \
  ../../../wizzimote-contiki/core/sys/process.h \
  ../../../wizzimote-contiki/core/sys/pt.h \
@@ -45,8 +46,9 @@ obj/utils.o: utils.c header.h ../../../wizzimote-contiki/core/contiki.h \
  ../../../wizzimote-contiki/core/dev/xmem.h \
  ../../../wizzimote-contiki/core/dev/debug-print.h \
  ../../../wizzimote-contiki/core/dev/fram.h \
- ../../../wizzimote-contiki/core/dev/serial-line.h config.h
-utils.c header.h ../../../wizzimote-contiki/core/contiki.h :
+ ../../../wizzimote-contiki/core/dev/serial-line.h config.h message.h
+utils.c utils.h header.h :
+ ../../../wizzimote-contiki/core/contiki.h :
  ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h :
  ../../../wizzimote-contiki/core/sys/process.h :
  ../../../wizzimote-contiki/core/sys/pt.h :
@@ -93,4 +95,4 @@ utils.c header.h ../../../wizzimote-contiki/core/contiki.h :
  ../../../wizzimote-contiki/core/dev/xmem.h :
  ../../../wizzimote-contiki/core/dev/debug-print.h :
  ../../../wizzimote-contiki/core/dev/fram.h :
- ../../../wizzimote-contiki/core/dev/serial-line.h config.h :
+ ../../../wizzimote-contiki/core/dev/serial-line.h config.h message.h :

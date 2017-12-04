@@ -1,6 +1,5 @@
+#include "utils.h"
 #include "header.h"
-
-PROCESS(WDTCHECK,"WDTCHECK TASK");
 
 static uint8_t PROGRESS=0;
 
@@ -30,6 +29,9 @@ void setPROGRESS(uint8_t i)
 		case 3:
 			PROGRESS |= (1<<3);
 			break;
+		case 4:
+			PROGRESS |= (1<<4);
+			break;
 		default:
 			statusLog("ERROR: invalid input to setPROGRESS function");
 			break;
@@ -51,17 +53,13 @@ void debugLog(char* str)
 }
 
 // Function to kick the watchdog
-PROCESS_THREAD(WDTCHECK,ev,data)
+void kickWatchdog()
 {
-	PROCESS_BEGIN();
-
 	uint8_t p = getPROGRESS();
-	if((p & 0x0E) == 0x0E)
+	if((p & 0x00) == 0x00) //TODO
 	{
 		clearPROGRESS();
 		statusLog("Watchdog being kicked");
 		WDTCTL = (WDTCTL & 0xFF) + WDTPW + WDTCNTCL; // kick watchdog
 	}
-
-	PROCESS_END();
 }
