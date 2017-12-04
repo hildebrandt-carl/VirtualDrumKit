@@ -7,7 +7,7 @@ var s = require("net").Socket();
 var serverip = '160.119.248.28';
 var serverport = 4242;
 
-/*try{
+try{
 	console.log("trying connection");
 	s.connect(serverport, serverip);
 	s.write("web");
@@ -16,7 +16,7 @@ catch(err){
 	console.log("failed connection");
 	resp.writeHead(420);
     resp.write('Failed Connection');
-}*/
+}
 
 s.on('data', function(d){
 	console.log(d.toString());
@@ -96,16 +96,12 @@ function processdrum(req, resp) {
 		if(value === "Create Pi1")
 		{
 			console.log("Received Value");
-			//s.connect(serverport, serverip);
 			s.write("a");
-			//s.end();
 		}
 		else if(value === "Create Pi2")
 		{
 			console.log("Received Value2");
-			//s.connect(serverport, serverip);
 			s.write("b");
-			//s.end();
 		}
 		else if(value === "Create Pi3")
 		{
