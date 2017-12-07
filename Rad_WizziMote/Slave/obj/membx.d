@@ -1,4 +1,4 @@
-obj/membx.o: ../../../wizzimote-contiki/core/lib/membx.c \
- ../../../wizzimote-contiki/core/lib/membx.h
-../../../wizzimote-contiki/core/lib/membx.c :
- ../../../wizzimote-contiki/core/lib/membx.h :
+obj/membx.o: ../../RAD_Contiki/core/lib/membx.c \
+ ../../RAD_Contiki/core/lib/membx.h
+../../RAD_Contiki/core/lib/membx.c :
+ ../../RAD_Contiki/core/lib/membx.h :

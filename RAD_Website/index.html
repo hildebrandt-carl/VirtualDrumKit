@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://use.fontawesome.com/9bf9e2bce7.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("back1.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.center{
+    width: 600px;
+    height: 150px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 50px;
+    margin-bottom: 20px;
+
+    font-family: Pacifico;
+	font-size: 20px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+
+    color: #1d89ff;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: white;
+    overflow: hidden;
+
+    font-family: Pacifico;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #1d89ff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: white;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #1d89ff;
+    color: white;
+}
+
+.animate
+{
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+}
+
+.action-button
+{
+	position: relative;
+	padding: 10px 40px;
+    margin: 0px 10px 10px 0px;
+    float: left;
+	border-radius: 10px;
+	font-family: 'Pacifico', cursive;
+	font-size: 20px;
+	color: #FFF;
+	text-decoration: none;	
+}
+
+.blue
+{
+	background-color: #3498DB;
+	border-bottom: 5px solid #2980B9;
+	text-shadow: 0px -2px #2980B9;
+}
+
+.red
+{
+	background-color: #E74C3C;
+	border-bottom: 5px solid #BD3E31;
+	text-shadow: 0px -2px #BD3E31;
+}
+
+.green
+{
+	background-color: #82BF56;
+	border-bottom: 5px solid #669644;
+	text-shadow: 0px -2px #669644;
+}
+
+.yellow
+{
+	background-color: #F2CF66;
+	border-bottom: 5px solid #D1B358;
+	text-shadow: 0px -2px #D1B358;
+}
+
+.action-button:active
+{
+	transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+	/*border-bottom: 1px solid;*/
+}
+
+</style>
+</head>
+<body>
+
+    <div class="topnav" id="myTopnav">
+        <a class="active" href="#home">Home</a>
+        <a href="#">The Code</a>
+        <a href="#">Contact</a>
+        <a href="#">About</a>
+    </div>
+
+    <div class="bg">
+        <div class="center">
+                <a href="#" class="action-button shadow animate red">Bass</a>
+                <a href="#" class="action-button shadow animate green">Floor Tom</a>
+                <a href="#" class="action-button shadow animate yellow">Low Tom</a>
+                <a href="#" class="action-button shadow animate yellow">Hi Tom</a>        
+                <a href="#" class="action-button shadow animate green">Snare</a>
+                <a href="#" class="action-button shadow animate red">Hi Hat</a>
+                <a href="#" class="action-button shadow animate green">Cymbal</a>
+                <a href="#" class="action-button shadow animate yellow">Simple Beat</a>
+                <a href="#" class="action-button shadow animate red">Complex Beat</a>
+        </div>
+
+        <div class="bottom">
+            <a>Be like Brock - RAD_Team</a>
+    </div>
+    </div>
+
+
+</body>
+</html>

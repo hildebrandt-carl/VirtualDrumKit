@@ -59,7 +59,7 @@ void kickWatchdog()
 	if((p & 0x00) == 0x00) //TODO
 	{
 		clearPROGRESS();
-		statusLog("Watchdog being kicked");
+		//statusLog("Watchdog being kicked");
 		WDTCTL = (WDTCTL & 0xFF) + WDTPW + WDTCNTCL; // kick watchdog
 	}
 }

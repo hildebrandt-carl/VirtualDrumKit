@@ -28,9 +28,10 @@ PROCESS_THREAD(main_process, ev, data)
 	R_OFF(); R_OUT();
 	Y_OFF(); Y_OUT();
 
+	G_ON();
+
 	// Begin status logging
 	statusLog("Starting up the system RAD_TEAM");
-	static int loopCount = 0;
 
 	// Set up virtual clock timer
 	TA1CTL = TASSEL0 + TAIE + MC0; // ACLK @ 32 kHz
@@ -38,8 +39,8 @@ PROCESS_THREAD(main_process, ev, data)
 	TA1CCTL0 = CCIE;
 
 	// Start receiving over radio
-	static uint8_t oldReceivedMsg[50] = "" ;
-	static uint8_t msg[50] = "";
+	static uint8_t oldReceivedMsg[10] = "" ;
+	static uint8_t msg[10] = "";
 	rf1a_start_rx();
 
 	// Set up motor output TODO
@@ -47,60 +48,70 @@ PROCESS_THREAD(main_process, ev, data)
 	P1DIR |= LEFT_R;
 	P2DIR = RIGHT_H + RIGHT_R;
 
+	//light_inverter variable
+	int messageReceived = 0;
+	int oldMessage = -1;
+
+	statusLog("Started");
 	while(1)
 	{
-		// Status log TODO: needed?
-		loopCount++;	
-		char counterStr[50];
-		sprintf(counterStr,"System has been running for %d seconds.",loopCount);
-		statusLog(counterStr);
 
-		// TEST HITTING THE DRUM
-		G_ON();
-		hitDrum();
-		printf("hit drum\r\n");
-
-		etimer_set(&et, 1*CLOCK_SECOND);
-		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-
-		G_OFF();
-		unhitDrum();
-		printf("unhit drum\r\n");
-
-		etimer_set(&et, 5*CLOCK_SECOND); //hit every 5 seconds for now
-		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-		//end TEST HITTING DRUM
 		kickWatchdog(); //TODO
 
 		// Process received wizzimote messages
-	/*	getReceivedMessage(msg);
-		if(strcmp(msg,oldReceivedMsg) != 0)
+		int newMessageFlag ;
+		getReceivedMessage(msg, &newMessageFlag);
+		
+		if(oldMessage != newMessageFlag)
 		{
+			oldMessage = newMessageFlag;
+			statusLog("Recieved a new message");
+			printf("%d, ",	msg[0]);
+			printf("%d, ",	msg[1]);
+			uint32_t msgIntField =  *((uint32_t*)(&msg[2]));
+			printf("%d\r\n",	msgIntField);
+
+			if(messageReceived == 0)
+			{
+				Y_ON();
+				messageReceived = 1 ;
+			}
+			else
+			{
+				messageReceived = 0;
+				Y_OFF();
+			}
 			strcpy(oldReceivedMsg,msg);
 			if(msg[0] == CLKREQ) // clock request message, for synchronization
-			{
-				// TODO: send CLKREQ ACK msg with virtual clock value
+			{	
 				char returnMsg[6];
 				returnMsg[0] = CLKREQ | ACK;
-				*((uint32_t*)(&returnMsg[2])) = virtualClock;  //TODO: right? also disable interrupts
-				unicast_send(returnMsg,14,4); //TODO: set IDs
+				returnMsg[1] = MY_ID;
+				*((uint32_t*)(&returnMsg[2])) = virtualClock;  //TODO: also disable interrupts
+				printf("---------------------Clock request returning - %d\r\n",virtualClock);
+				unicast_send(returnMsg,6,1); 
 			}
 			else if(msg[0] == SETCLK) // set clock message, for synchronization
 			{
-				int adjustment = atoi(&msg[2]);
+				uint32_t adjustment = *((uint32_t*)(&msg[2]));
+				printf("I was told to setclock by %d\r\n",adjustment);
 				updateClock(adjustment);
 			}
 			else if(msg[0] == SCHDL) // schedule message, for playing drums
 			{
+				printf("I was told to schedule message\r\n");
 				// if this drum set, add to FIFO queue
 				if((msg[1] & MY_ID) != 0){
-					writeFifo(*((uint32_t*)(&msg[2]))); //TODO: right?
+					printf("Adding a message to the FIFO queue\r\n");
+					writeFifo(*((uint32_t*)(&msg[2])));
 				}
 			}
 			else if(msg[0] == 0x0) // hit now message, for playing drums
 			{
+				printf("Hit message now sent\r\n");
 				// if this drum set, play now
 				if((msg[1] & MY_ID) != 0){
+					printf("This hit message was for me!\r\n");
 					playNow = 1;
 				}
 			}
@@ -108,46 +119,48 @@ PROCESS_THREAD(main_process, ev, data)
 
 		// Check for a scheduled hit
 		uint32_t clk;
-		if(!readFifo(&clk)){ // fifo not empty
-			if(clk == virtualClock){
-				playNow = 1;
-			}
+		peekFifo(&clk);
+		if(clk == virtualClock){
+			playNow = 1;
+			readFifo(&clk);
 		}
 
 		// Play drum, if applicable
-		if(playNow != 0){
-			hitDrum();
+		if(playNow == 1){
 			playNow = 0;
+			hitDrum();
 		}
-		*/
-		
 	}
 	PROCESS_END();
 }
 
 void updateClock(uint32_t adjustment){
 	//TODO: disable interrupts
+	printf("adjustment %d\r\n", adjustment);
+
 	uint32_t oldValue = virtualClock;
 	uint32_t newValue = virtualClock + adjustment;
+
+	printf("Old value %d\r\n", oldValue);
+	printf("New value %d\r\n", newValue);
+
 	// if skipping forward, discard any skipped entries from FIFO queue 
 	if(newValue > oldValue){
 		uint32_t clk;
-		peekFifo(&clk);
-		while(clk < newValue){
-			playNow = 1;    // if we skip an entry, play now to make up for it
-			readFifo(&clk); // discard skipped entry
-			peekFifo(&clk); // peek next entry
+		if(!peekFifo(&clk))
+		{
+			while(clk < newValue){
+				playNow = 1;    // if we skip an entry, play now to make up for it
+				readFifo(&clk); // discard skipped entry
+				peekFifo(&clk); // peek next entry
+			}
 		}
-		virtualClock = newValue; // update clock
 	}
+	virtualClock = newValue; // update clock
 }
 
 #pragma vector = TIMER1_A0_VECTOR
 __interrupt void Timer1A0ISR(void)
 {
 	virtualClock++;
-	printf("%d\r\n", virtualClock);
-	char debugStr[50];
-	sprintf(debugStr,"In the interrupt, clock is %d",virtualClock);
-	statusLog(debugStr);
 }

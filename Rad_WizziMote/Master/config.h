@@ -57,7 +57,7 @@
   /* only define a node ID if FlockLAB is not used (FlockLAB automatically 
    * assigns node IDs); select an ID other than HOST_ID to compile the code 
    * for a source node */
-  #define NODE_ID                       5
+  #define NODE_ID                       1
 #endif /* FLOCKLAB */
 
 #define LWB_CONF_OUT_BUFFER_SIZE        2

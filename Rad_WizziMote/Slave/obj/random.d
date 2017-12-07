@@ -1,4 +1,4 @@
-obj/random.o: ../../../wizzimote-contiki/core/lib/random.c \
- ../../../wizzimote-contiki/core/lib/random.h
-../../../wizzimote-contiki/core/lib/random.c :
- ../../../wizzimote-contiki/core/lib/random.h :
+obj/random.o: ../../RAD_Contiki/core/lib/random.c \
+ ../../RAD_Contiki/core/lib/random.h
+../../RAD_Contiki/core/lib/random.c :
+ ../../RAD_Contiki/core/lib/random.h :

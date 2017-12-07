@@ -1,6 +1,6 @@
-obj/arg.o: ../../../wizzimote-contiki/core/sys/arg.c \
- ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h \
- ../../../wizzimote-contiki/core/sys/arg.h
-../../../wizzimote-contiki/core/sys/arg.c :
- ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h :
- ../../../wizzimote-contiki/core/sys/arg.h :
+obj/arg.o: ../../RAD_Contiki/core/sys/arg.c \
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h \
+ ../../RAD_Contiki/core/sys/arg.h
+../../RAD_Contiki/core/sys/arg.c :
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h :
+ ../../RAD_Contiki/core/sys/arg.h :

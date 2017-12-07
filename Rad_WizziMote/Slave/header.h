@@ -11,7 +11,7 @@
 #define DEBUG 1
 
 //Change this to change the instrument: BASS, FLTOM, LOTOM, HITOM, SNARE, HIHAT, CYMBAL
-#define MY_ID FLTOM
+#define MY_ID SNARE
 //NOTE: also need to change node id in config.h...
 
 

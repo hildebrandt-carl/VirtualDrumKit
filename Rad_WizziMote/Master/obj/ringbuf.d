@@ -1,6 +1,6 @@
-obj/ringbuf.o: ../../../wizzimote-contiki/core/lib/ringbuf.c \
- ../../../wizzimote-contiki/core/lib/ringbuf.h \
- ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h
-../../../wizzimote-contiki/core/lib/ringbuf.c :
- ../../../wizzimote-contiki/core/lib/ringbuf.h :
- ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h :
+obj/ringbuf.o: ../../RAD_Contiki/core/lib/ringbuf.c \
+ ../../RAD_Contiki/core/lib/ringbuf.h \
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h
+../../RAD_Contiki/core/lib/ringbuf.c :
+ ../../RAD_Contiki/core/lib/ringbuf.h :
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h :

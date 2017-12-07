@@ -1,10 +1,8 @@
-obj/packetbuf.o: ../../../wizzimote-contiki/core/net/packetbuf.c \
- ../../../wizzimote-contiki/core/net/packetbuf.h \
- ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h \
- ../../../wizzimote-contiki/core/net/linkaddr.h \
- ../../../wizzimote-contiki/core/sys/cc.h
-../../../wizzimote-contiki/core/net/packetbuf.c :
- ../../../wizzimote-contiki/core/net/packetbuf.h :
- ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h :
- ../../../wizzimote-contiki/core/net/linkaddr.h :
- ../../../wizzimote-contiki/core/sys/cc.h :
+obj/packetbuf.o: ../../RAD_Contiki/core/net/packetbuf.c \
+ ../../RAD_Contiki/core/net/packetbuf.h \
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h \
+ ../../RAD_Contiki/core/net/linkaddr.h ../../RAD_Contiki/core/sys/cc.h
+../../RAD_Contiki/core/net/packetbuf.c :
+ ../../RAD_Contiki/core/net/packetbuf.h :
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h :
+ ../../RAD_Contiki/core/net/linkaddr.h ../../RAD_Contiki/core/sys/cc.h :

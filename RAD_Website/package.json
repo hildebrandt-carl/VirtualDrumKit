@@ -1,18 +1,25 @@
 {
-  "name": "RAD_Website",
-  "version": "0.0.0",
+  "name": "rad_site",
+  "version": "1.0.0",
   "description": "Advanced Embedded Systems Course",
-  "main": "ultrasupertestserver.js",
+  "main": "httpserver.js",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "formidable": "^1.1.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hildebrandt-carl/RAD_Website"
+    "url": "git+https://github.com/hildebrandt-carl/RAD_Website.git"
   },
   "author": "",
-  "license": "BSD-2-Clause",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/hildebrandt-carl/RAD_Website/issues"
-  }
+  },
+  "homepage": "https://github.com/hildebrandt-carl/RAD_Website#readme"
 }

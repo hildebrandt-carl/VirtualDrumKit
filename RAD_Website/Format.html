@@ -5,157 +5,146 @@
 <head>
 <link rel="icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIRTeAP+EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAREAAAICAAABAQAAIgIAABABAAAgACABEAAQAgAAIAEAABECAAACEQAAASIAAAAQAAABEAAAABIAAAIQAAABAiAAAhAAAAEAIAAiAQAAEAAgACABAAAQAAICIAEQARAAAiIAABABAAAAIgAAEBAAAAAgAAAREAAAAAAAAAF+PgAAvrwAAL29AADZ2wAA28sAAOPjAAD35wAA8+cAAOnnAADtywAA3dsAAN6ZAACePQAAvz0AAH98AAB//gAA" type="image/x-icon" />
 <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIRTeAP+EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAREAAAICAAABAQAAIgIAABABAAAgACABEAAQAgAAIAEAABECAAACEQAAASIAAAAQAAABEAAAABIAAAIQAAABAiAAAhAAAAEAIAAiAQAAEAAgACABAAAQAAICIAEQARAAAiIAABABAAAAIgAAEBAAAAAgAAAREAAAAAAAAAF+PgAAvrwAAL29AADZ2wAA28sAAOPjAAD35wAA8+cAAOnnAADtywAA3dsAAN6ZAACePQAAvz0AAH98AAB//gAA" type="image/x-icon" />
+<script src="https://use.fontawesome.com/9bf9e2bce7.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 <style>
-p.center 
-{
-	text-align: center;
-	color:black;
-	font-size: 32px;
+body, html {
+    height: 100%;
+    margin: 0;
 }
 
-.button 
-{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-    cursor: pointer;
+.bg {
+    /* The image used */
+    background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxANDQ0NDQ0NDQ0NDQ0NDQ0NDQ8NDQ0NFREWFhURExMYHSggGBolGxUVITEhJSkrLi46Fx8zODMsNygtLjMBCgoKDg0OFQ8QFysZFRkrKy0tKysrKy0tKysrLS03LS0tKystLSstLSstLS0tKysrLS0rKy0tNystKy0tLSstLf/AABEIALEBHAMBEQACEQEDEQH/xAAbAAADAQEBAQEAAAAAAAAAAAACAwQBAAUGB//EACoQAAMBAQACAQQBAwQDAAAAAAABAgMRBBIhEzFBUWEUkaEigbHhcdHw/8QAGwEAAwEBAQEBAAAAAAAAAAAAAQIDAAQFBgf/xAAmEQADAQEBAAICAgICAwAAAAAAAQIRAxIhMUFRBBMVYSJxBRQy/9oADAMBAAIRAxEAPwD6NI8HT7IZAjYjLPHvgI6Yzm6Tp6mN9R6HPppw0sN0z6W0CrDzvJ8cGnXz6nn7YA9HZHQj0xN7OmbEvMK6FPRnoN7No+sfjqOZdseMl7xiHHDpnppVVoWT4N6BS0pSN6I6UePpz4YVRK50uihvRztDJY2iNBh0UFoOhQujaOhNI2lEEjCk/kQHS3NnlbY8ZtO2b+AVkbQ+gvomB7N+gYHsx4GD/YC8TBVi6zMOqBcmDpnDBM4Yx3DBO4YBxgnuep8/p5mhKRGwNjoJNkqLPG04X49MOTpJ6eb6j0ZrTkfwDrj1DBm8PO8jD+CdHXz6kWuBJ0dcdCW8BP7C6sVWQy6jqw8Pj/S/s/t/DJ9vn/kvsW1vyjt8BOXf8MSOn4JfU7V0OlVo7GvwN7EpFCk3slo/Gvwxl0JWipDqyISGVgOY3owNIb0FC3JtG0HnDaNplz1B9BTxkOufQ6dE0KmA6UbGKDaI6CWYdB6N9DaD0BeZtGVCbyNpRUJrMGlFQuoNoyoH1No2meptNp3qDTaZw2hPonmfPNnkqjFIjZtDUk2wNjYFVYyVLT0fE0/B6PHqcXSC+V07U9OZiN8OmpaNN4Qa4nH0WHZz6aTaYnO6OmbJrxE94WViLyGXQoqGZ/6lx/df5Rz9f+L9L6I9FnyiffH8luPffhj8uv4EpHZ7OndH43+Gb2TpFUyMqItlGT/DGVkqQ5SUVk9N9RlYNMcDew6C4D6DpjzD6D6A9A+hvQrbDvyhlQ83+CeshvRVWbMB0zYazG0X0b9M2g9AvM2hVC6yNo6oTeZtHVCbzBpVUKcA0dUD6G0Og1INCmD6h0bT6qsjwaPDVi3mRYyoz1Jth01IRsA/GuMpz6YydrT1fG06j1ePXTh6ThQ5OtEGSbYkesaV52RaZnmdPhnZNaJrPpBsqqJtMRfWFpsU8/7h978Mf0dc9X8/lEP/AIf+iFLy9RJpnw7OfXUdPPpqFpFvRfdKsNPwxpsjclkrpU52x+b/AGFUToeoH0np3oH0D0Y4D6D6M9Aqw+jnmN6N6A+mMqG9CtMPyh1Q82JeQyop6NUjKgab6DaDTnAdD6BeZtCqE3mDSk0IrMGlFQmswaUVC6gGjpiqk2jpgcNo2n3Gvjnm3B81PQmvI5qksrEVmQpFFQPqSY2moXQFXj6cOnj1xkbnT08b6j1+PT0cVzgdx06GtRJPCLfI83+TB1cqI6nh5lfB1JgOeg0ZPBN5cEbwoqF1n+V9wbqxjbvwyfXP+3/BppyyfzDJanh1zWnZF6Yh9KFvi7fhlud/hnP0j8ovme/Yv5OVsfmb6J0OUhJ6b6AN6O+mEHo36Q2m9AVmHRlQDgKob0KvEdUOrE1mN6KKjlIyo2m+g3o2negfRvQFZG0KoReINKqxGmYNKzRNpANKzRPch0qmD6m0bT9DrMm5Pk1RPrgc98ys2SaY8OO+eHRNk9ZnPUlFQDki0NpqAnhivx9uHbw7YQuNPTxv2R7HPp6RxXOHbZdF689RorDzt8jye3LDsiyVo42sLJnChArMRrAqhOmX/aCmPu/DJNMisVgJpwyes+HTPydkXpk/AWM/k9Dw/J58M6OPX8M5evP8o9TNJrqOvzpxV8DZXBcwRjpXQ4TbDUGwXTnBsDoLgAUxdQAZUA4CmN6FXkHR1YmszaUVHJDKw6b6jegad6B9G9AvM2h9CNMANlZsj2yBp0TZHpAyZeaF+gdH0/RGirR8loNQI5GTE6Y9IXz0pNkeuHDj6cjomyaszlqCqoBwQcjadKNLwzLPG14ejw7EOk6elnXsj1YpUjjpYxXkY9I9uWjxZ5uuR5PXjh1zYr1OVyU01IXybTHmK5N6Ea4DJD6q+CWsu/D/ANi3Os+GGacsnvLh05p1zei18E38D/Zf4fl+vw/sdPHvnwzm68d+j189FS6ju+KWo4Klphy+E2sFa0fF9GT0m5wZwOCGORWg6C5EwOguDDaA4MH0BWXTDKhV4gY6sDn7B6GC9RvQNO9BvRtOeYdN6JfIwA2XjoeZtkD0dk2J+mH0U9H3/Dvw+W0xoDQdBciOQpgXn0lXPR1RLr45y3xLT0JrxOS+RVWLcHNUD+jkuCzTlm+yvx9eHp/x+5C5Lpfsj0k1SOZrBO2Bz9eOlJsivHh5vTjhdWD9Mi4G9BKAqQejLxFrl+UFWR7+P+UJ53/ssq0mrPvw/uW53+GNNOWTaYlqnTqmxLnhBpopulHjeS4ZXl3ckenNUeth5KtfyejNq18HFfNyUJgckx2en7CmScj18j5pNm+ork2meovk2negcNpjyN5D6BeYPIfQu8OiVGjKxNZNEWnJVUmYkZWYNIoqBovWPgzoaaPN3yJ+jriyZ5B0urPtD1kfOm8CAxoGBM4DDGORXIdE6Y9I3yTKKyXTA4unEtNiXBxXzKKjEuCS3LDpX4+h6f8AH7ELksXyj0U1SOd/ArTIh05aPNk9Z8OG+WFVQKkl5DoSQyRtBvJMFck/oKrCHfx+EnH7+y83oisfZfz+CkPPhlJvyR648+GPUadM3v0T1HDluGiiYWejlgjq4YKlM9LxvM/DPS5d1f2cnTj+i/O0/sXw5nLQ6K4L8om1pRF9KTSZJzgzgXIpvBcNpyQUgaF6j4bQXmK4N6AeYrgZUJvx/wBHPfD9FF0FOGvuc7VT9lE0wWb2FE22YjotFEtYm9FlZ9FnoetHTTyHI1MsmLhowDjBM4Yx3BTAVPSdSmMmI0xOXpx0orEVmcV8cKqgV8E52WF/JVjoehw7ELkqn5O9NMi/gC8yd8tGVCLzOK+WFFQHCP0ObwZAAuOjOUxk8JdMefYR88LK9E65Klx/f8GXwPNuSDXHj4xnKo6pvSe8jj6ciioBfBDXLC/krw3aOvl/L/DI3CZfl5P7O2eir6OauZVnqn+RyNS0VZ2VlkakdNDE2g0AASQ6FCSHSAb6h8o2guBXAfQFZiVzT+xlQm/GT+xy9P4qf0OujRJr41L+Tg6fx+kl56omqGn9jmdUvhosqRVnoevP+jnqSiNSs9M+yTkfNl5vRGgkymgNCY4BjANGMaFaDouoI1zTGTEXkcfTiUVC18EFssf7KMdDu49iNSVTXTvmkyTR1R0W+aZkye8zi6ciioU1w5mmimmdGVBO4VXybRGuP6BUDzZNrn1fJP5Raawh1xc/+P2N8UdM3omoObrx0fQfTh5/SHJtGxXDc+7QjKM9Dv5/yt+ydSWY7s7+fVMhUFmeyOhYyFQPnT+RWsJNDJ0FXTPsVyMmi09ExWgulPQDOgdGw72F9mwwOpmOaN5TDouskQrjOjKmePFnDFHe0OnQ6U9JuRs6h+V9E3I6Nis9BHI6bLKibQaY4DTAO4bDGNCuQgVJOpGTFXmct8h1Qpzw5/LkbdG56cOjl2wWpKovp3xaZFo2p6NUJgTEaZnJ05FFQipOWowqmD9hVqCEq/Zea37A0L1x/KNUflDTZNWffjn+xBz+iqrCPbxmvlfK/wAoKr9nRHRP7EqSXTkqHZ1Znl9uDT1A0FfBzqmgj87Orn/IaEaKc9T0eX8v9kqgomzvnrNEnIfu/wBi9I36FxHfXpHBbufo39aYc+ayf/u3P2B8UF/XfwP/AJL9oX+g7+sX6B/kV+jf0m/1g3+RRv6TP603+S/0b+kx+Yyb/wDJP9Df0nlzZWWdbQxWdEsVoJWWTEchqxs0VyNjbhk2hHBTnuVnoScD5vpZUTaGJjimgwxnAYYGpJ1AUxdQQrmOmLqDnqMHTOm+Bjo5A1pTnp07+fVMlU4Ma6WaTE+hV5kL5DqhFwctc8KqhTQmD6anwZNoDAuUxKxhTFUuf/fJJsdMRpgq+V8P/AUys9GvhiHHPhiXCopu/QF5nnduBkxfOHE5aHTCmxppo2Do0OiO9SK5HTsdsfzf2TcB+/Sz7TQvkzpzXMsxxy1zMcSchOFwxwDHGMQKj1pZ0tBKy0sVoNWWmhWg1ZZUI0MVDitBzQrn9CtDs9mgqmibgpz3LT0JOCiNOllWknIzowDgYYxoVybQKgjXMZMVUHNfMdMFfAktyM/kflqdvPqSqR/enSmmTAuBKjRlRNpmc1cyqoU0Scj6CxGggsm0YXUflMRz+hlX7F1X4pCe/wBjr/Qus/1/YDxjqhNQcvTjo6Yqo4cdcsHVGJk8GDVA0GBqhlbQrQaoourFaGJlFei4aB/IDibRjuiNBOMY8uKPXiTsaDKeRDvY30bAlZRUI0NnQqrFcjZsoqEaDVBFwOaFwVodntwebaJuCvLyC89CNcyib6VT0m0EMKbwGGBciONCmLrMhXIdUA54S8tDaHF8Kx0aFcj5rp1zWk2jqnpnOgTEaZEa5lFRPccOeowqmKZFocBkqQRdkaf7ChT+Pt/Ynn6KGd7/AN/+zev2YGpEqUxkxVwc18x1Qprhy1LRRPQpombBk0FMVobLKJiMNFExTmFmB6K0E3ouGw8fGj3og77RRLK+SLRoHCYDHIj5sxyfAY0DA5sKYrQ2dB1QjkZNlExWg1YRcDmzAcj8vI4PNtE65lmXkdLz0IVzHzfSqek2guhAcDDAtCOdCmA5JOBtOXwZajMbFl5sm0H9yn2AVeZOoGVE2mRzXzLKiepOepKJi6RCpGQtohU4HRdIG/sdMHpvH6GBf9v+CVS0FC6Oa0MgOHPUDpmpk2mjDYoyYjGpjqhTR1RgWHQmGCeD4+h9PMHp9JLJsbyc7QaoXyI0F0HkGG9B5Bh3BHCMcL4AEqB8gwNaDJiuQ1oOmK5GKxhXIydDCuR+fk8GVtEq5lefkplp6Ea5jp0TKKibkLodBh3QGOBgTkZIAaodMXAlQ2gwGp6BrQpiNMiF8ys0S6ZnLUFVRPSOepHQDIVIwq0T9ORkxbodWqKGfBOoTCA5Oa+T/AUwenNSz7CEqJNGGxYuiNDEwqgGlEzGcG0J8j4+x9n5Pe6QWxsByczgfGwrkk4GzoI0TcjFoDBfJvuLgMN9gYbDvYDQMO9hcNhqoGAwJaGA5GToHRHIxaDaL5DnUArkdn5LQVTRN8yrPykyq6Ea5j516UVE3IasOi4b7B02G+5tBh3uHTYErD6B5N9+m02AVCYtSmFMm1xOe+ZWbJNM+HLfMsqEWjkuB0T6HLSaKyK9wz1/FD4ErK/f0DyF3pOpT+wYY4/Rz3/H36NpnyjkvnU/aMMiyOgwbNjqhcC9h/Rj4LLY++w+pqCmNwYQcFOe4rRKoKY2EckXA6dRXJNyF9QRyL5O9xPJvJqsGA8mrQ2A8m/UBgPJq1Fw3kJagwVyGtTCuA1sDRfAS1DorkNbAA4HR5TQVTRN8tKs/MHXQjXEondMoqJuAvqB0Xyd9Q3o3k36pvRvJ31TegeQluH2bwEtUw+kxfLQNSmK5TCm0Ta4nPfIrNEG+RxdOR0RRFouHHfMuhavgstyNgyNDoTVAcjFYtTgjkNWSoXyd1HLfKWb5NTOZ82jG+4oMPzydD9CPr3I6NTCOB+e5iVcynPcGEagojyAYSfMYtxXIjgYtRfIvgOdAeBXIxUDyJhzoDg2AVQrgZID6gjgPk1eQI5B/WHPkAwV8xs7Gwm4DWoMF8BLUGA8BLYGCuB+flNfky1E65JleXmdHVka4j1t0fSXg56GN5O+qDQ+QXsbTeAXtwXRvBs+XwKsD4jp8pMf1pN8mjr5QlSmZaiLfE5r4l4sg1z4cl8jpl6TVXCLhr6KpaHG/wCx1e/DA4GLQW5EchLU53IrkNaieRfJv1BHzN5Pz3p9wfXBKjAwOdDCuR8amJuB8ahJuBs6gJuB06mwm4HRqDBHA6dQYTcBfUNgvkx2DyFIVVC+R0hdWK4GUg/UEcB8hTu1+RfIHzQ6PJB5JvkOWoPJPwatQeQeA1qL5FcDJ2B5EcDs/La/IPlE3y0pjzExkyT4tDPrphF8AvU2BUgPUGDeRdaG8jKRf12hcG/r0dl538hTJ1wK48lUN9kXzaB1hUJXPQy2jz/IxOW+R0xRFS4c9cy6OnTgn0ZyOnQDlMRyF7i+BfJj0A4N5PiT6w+oOMA3pjYFNGFaGzoERyOnQwjkOdTCORk7GFcDZ8gAj5hryP5ML/Wb/UL9mB/Wc90Y3gXWqBgykB6gwfyd9QHkHk1WL5N5GTq1+QeRHA2dweRHzGLUXyJ4CWovkHg1bC+RfBv1v5F8G8DI8xo2CviPjyujYSfLBn1RvIvgF6B8hUi60N4HUiasHgfyHn5LQPAtctLsPM6DDmvjhQ6VIDnSXlok3yOe+RaKIrnhy1zLoFVwjmBaGqwiYC6AHD5E+mPojjGOMY1GAwkEVjUAQMwDggNQAGmMaYBqMYwxjjBNRgByAVhoAoSAKNgViMMApopjUKKY/uAYbkEnRTAyIsJjAF0EdCqAMgADjsRSdHo4AOSxuhOiaINzls6ZJ2c1FDUSAzmYB//Z');
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.btn-group .buttonBorder 
-{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 24px 42px;
-	width: 125px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-    cursor: pointer;
-	float: left;
-	border: 1px solid black;
+.center{
+    width: 600px;
+    height: 150px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
 }
 
-.button1 
-{
-    background-color: white; 
-    color: black; 
-    border: 2px solid #4CAF50;
+.bottom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 50px;
+    margin-bottom: 20px;
+
+    font-family: Pacifico;
+	font-size: 20px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+
+    color: #1d89ff;
 }
 
-.button1:hover 
-{
-    background-color: #4CAF50;
-    color: white;
-}
 
-.button2 
-{
-    background-color: white; 
-    color: black; 
-    border: 2px solid #008CBA;
-}
-
-.button2:hover 
-{
-    background-color: #008CBA;
-    color: white;
-}
-
-.button3 
-{
-    background-color: white; 
-    color: black; 
-    border: 2px solid #f44336;
-}
-
-.button3:hover 
-{
-    background-color: #f44336;
-    color: white;
-}
-
-.button4 
-{
-    background-color: white;
-    color: black;
-    border: 2px solid #e7e7e7;
-}
-
-.button4:hover {background-color: #e7e7e7;}
-
-.button5 
-{
-    background-color: white;
-    color: black;
-    border: 2px solid #555555;
-}
-
-.button5:hover 
-{
-    background-color: #555555;
-    color: white;
-}
-
-.button6 
-{
-    background-color: black;
-    color: green;
-    border: 2px solid #555555;
-}
-
-.button6:hover 
-{
-    background-color: #555555;
-    color: white;
-}
-
-.button7 
-{
-    background-color: black;
-    color: green;
-    border: 2px solid #555555;
-}
-
-.button7:hover 
-{
-    background-color: #555555;
-    color: white;
-}
-
+/* Add a black background color to the top navigation */
 .topnav {
-  overflow: hidden;
-  background-color: #333;
+    background-color: white;
+    overflow: hidden;
+
+    font-family: Pacifico;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
 }
 
+/* Style the links inside the navigation bar */
 .topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+    float: left;
+    color: #1d89ff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
 }
 
+/* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+    background-color: #ddd;
+    color: white;
 }
 
+/* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #4CAF50;
-  color: white;
+    background-color: #1d89ff;
+    color: white;
+}
+
+.animate
+{
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+}
+
+.action-button
+{
+	position: relative;
+	padding: 10px 40px;
+    margin: 0px 10px 10px 0px;
+    float: left;
+	border-radius: 10px;
+	font-family: 'Pacifico', cursive;
+	font-size: 20px;
+	color: #FFF;
+	text-decoration: none;	
+	display: inline-block;
+}
+
+.blue
+{
+	background-color: #3498DB;
+	border-bottom: 5px solid #2980B9;
+	text-shadow: 0px -2px #2980B9;
+}
+
+.red
+{
+	background-color: #E74C3C;
+	border-bottom: 5px solid #BD3E31;
+	text-shadow: 0px -2px #BD3E31;
+}
+
+.green
+{
+	background-color: #82BF56;
+	border-bottom: 5px solid #669644;
+	text-shadow: 0px -2px #669644;
+}
+
+.yellow
+{
+	background-color: #F2CF66;
+	border-bottom: 5px solid #D1B358;
+	text-shadow: 0px -2px #D1B358;
+}
+
+.action-button:active
+{
+	transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+	/*border-bottom: 1px solid;*/
 }
 
 </style>
@@ -163,64 +152,46 @@ p.center
 </head>
 <body>
 
-<div class="topnav">
-  <a class="active" href="#home" onclick="myFunction3()">Home</a>
-  <a href="https://github.com/hildebrandt-carl/RAD_VirtualReality">Our Repository</a>
+<div class="topnav" id="myTopnav">
+  <a class="active" href="#home" onclick="myFunction3()">RAD TEAM</a>
+  <a href="https://github.com/hildebrandt-carl/RAD_VirtualReality">The Code</a>
   <a href="https://github.com/hildebrandt-carl/RAD_Website">Contact</a>
   <a href="https://github.com/hildebrandt-carl/RAD_Controller">About</a>
 </div>
 
 
-<div style="text-align:center;background-color:#99ff99;color:black;padding:20px;">
-<h3>RAD Team</h3>
+<div class="bg">
+	<form action="http://127.0.0.1:4343/Drum" method="post" enctype="multipart/form-data" >
+		
+		<div class="center">
+		<input type="submit" name="send" value="Drum1" 
+		class="action-button shadow animate red"/>
+		<input type="submit" name="send" value="Drum2" 
+		class="action-button shadow animate green"/>
+		<input type="submit" name="send" value="Drum3" 
+		class="action-button shadow animate yellow"/>
+		<input type="submit" name="send" value="Drum4" 
+		class="action-button shadow animate yellow"/>
+		<input type="submit" name="send" value="Drum5" 
+		class="action-button shadow animate green"/>
+		<input type="submit" name="send" value="Drum6" 
+		class="action-button shadow animate red"/>
+		<input type="submit" name="send" value="Drum7" 
+		class="action-button shadow animate green"/>
+		<input type="submit" name="send" value="Simple Beat" 
+		class="action-button shadow animate purple"/>
+		<input type="submit" name="send" value="Complex Beat" 
+		class="action-button shadow animate orange"/>
+		</div>
+	</form>
+	
+	<div class="bottom">
+        <a>Be like Brock - RAD_Team</a>
+		<button class="action-button shadow animate green"
+		><%= testing %></button>
+	<p id="demo"></p>
+    </div>
 </div>
-
-
-<form action="" method="post" enctype="multipart/form-data" style="text-align:center;display:flex;" >
-	<input type="submit" name="send" value="Create Pi1" 
-	style="font-size:7pt;color:white;background-color:green;border:2px solid #336600; width:14%; height:60px;"/>
-	<input type="submit" name="send" value="Create Pi2" 
-	style="font-size:7pt;color:white;background-color:red;border:2px solid #336600; width:14%; height:60px;"/>
-	<input type="submit" name="send" value="Create Pi3" 
-	style="font-size:7pt;color:white;background-color:blue;border:2px solid #336600; width:14%; height:60px;"/>
-	<input type="submit" name="send" value="Create Pi4" 
-	style="font-size:7pt;color:black;background-color:yellow;border:2px solid #336600; width:14%; height:60px;"/>
-	<input type="submit" name="send" value="Create Pi5" 
-	style="font-size:7pt;color:black;background-color:orange;border:2px solid #336600; width:14%; height:60px;"/>
-	<input type="submit" name="send" value="Create Pi6" 
-	style="font-size:7pt;color:black;background-color:teal;border:2px solid #336600; width:14%; height:60px;"/>
-	<input type="submit" name="send" value="Create Pi7" 
-	style="font-size:7pt;color:white;background-color:purple;border:2px solid #336600; width:14%; height:60px;"/>
-</form>
-
-
-<button class="button button1"
-onclick="myFunction()">
-Drum1
-</button>
-
-<button class="button button2"
-onclick="myFunction2()">
-Drum2
-</button>
-
-<button class="button button3" 
-onclick="myFunction3()">
-Drum3
-</button>
-
-<button class="button button4"
-onclick="strike()">
-Drum4
-</button>
-
-<button class="button button5"
-onclick="strike()">
-Drum5
-</button>
-<p id="demo"></p>
-
-
 <script>
 function myFunction() {
 	document.getElementById("demo").innerHTML = "Hello JavaScript!";
@@ -252,9 +223,9 @@ function myFunction3() {
 </script>
 
 <script>
-function strike()
+function strike(number)
 {
-	alert("Hello\nHow are you?");
+	alert("There are this many users: " + number);
 }
 </script>
 

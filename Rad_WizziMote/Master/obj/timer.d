@@ -1,6 +1,6 @@
-obj/timer.o: ../../../wizzimote-contiki/core/sys/timer.c \
- ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h \
- ../../../wizzimote-contiki/core/sys/timer.h
-../../../wizzimote-contiki/core/sys/timer.c :
- ../../../wizzimote-contiki/mcu/cc430/contiki-conf.h config.h :
- ../../../wizzimote-contiki/core/sys/timer.h :
+obj/timer.o: ../../RAD_Contiki/core/sys/timer.c \
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h \
+ ../../RAD_Contiki/core/sys/timer.h
+../../RAD_Contiki/core/sys/timer.c :
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h :
+ ../../RAD_Contiki/core/sys/timer.h :
