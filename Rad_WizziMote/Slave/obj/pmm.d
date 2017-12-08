@@ -1,5 +1,5 @@
 obj/pmm.o: ../../RAD_Contiki/mcu/cc430/pmm.c \
- ../../RAD_Contiki/platform/olimex-ccrf/platform.h config.h \
+ ../../RAD_Contiki/platform/olimex-ccrf/platform.h config.h message.h \
  ../../RAD_Contiki/mcu/cc430/rf1a-SmartRF-settings/433MHz-2FSK-250kbps.h \
  ../../RAD_Contiki/mcu/cc430/adc.h ../../RAD_Contiki/mcu/cc430/clock.h \
  ../../RAD_Contiki/mcu/cc430/dma.h ../../RAD_Contiki/mcu/cc430/flash.h \
@@ -12,7 +12,7 @@ obj/pmm.o: ../../RAD_Contiki/mcu/cc430/pmm.c \
  ../../RAD_Contiki/mcu/uart.h ../../RAD_Contiki/mcu/cc430/usci.h \
  ../../RAD_Contiki/mcu/cc430/watchdog.h
 ../../RAD_Contiki/mcu/cc430/pmm.c :
- ../../RAD_Contiki/platform/olimex-ccrf/platform.h config.h :
+ ../../RAD_Contiki/platform/olimex-ccrf/platform.h config.h message.h :
  ../../RAD_Contiki/mcu/cc430/rf1a-SmartRF-settings/433MHz-2FSK-250kbps.h :
  ../../RAD_Contiki/mcu/cc430/adc.h ../../RAD_Contiki/mcu/cc430/clock.h :
  ../../RAD_Contiki/mcu/cc430/dma.h ../../RAD_Contiki/mcu/cc430/flash.h :

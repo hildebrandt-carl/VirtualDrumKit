@@ -28,37 +28,25 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * Author:  Reto Da Forno
+ * EDITs by RAD_Team
  */
 
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
+#include "message.h"
+
+//Change this to change the instrument: BASS, FLTOM, LOTOM, HITOM, SNARE, HIHAT, CYMBAL
+#define NODE_ID                       0xF
+
+
 /*
  * application specific config file to override default settings
  */
-
-// #define FLOCKLAB                           /* uncomment to run on FlockLAB */
 #define HOST_ID    1
 
 #define NULLMAC_CONF_ON 1
 #define GLOSSY_CONF_ON 0
-
-#ifdef FLOCKLAB
-  /* set the highest antenna gain if the program runs on FlockLAB */
-  #define RF_CONF_TX_POWER              RF1A_TX_POWER_MAX 
-  #define RF_CONF_TX_CH                 10      /* approx. 870 MHz */   
-  #define GLOSSY_START_PIN              FLOCKLAB_LED1
-  #define LWB_CONF_TASK_ACT_PIN         FLOCKLAB_INT2
-  #define RF_GDO2_PIN                   FLOCKLAB_INT1
-  #define DEBUG_PRINT_CONF_TASK_ACT_PIN FLOCKLAB_INT2
-  #define APP_TASK_ACT_PIN              FLOCKLAB_INT2
-  /* note: FLOCKLAB_LED2 should not be used */
-#else
-  /* only define a node ID if FlockLAB is not used (FlockLAB automatically 
-   * assigns node IDs); select an ID other than HOST_ID to compile the code 
-   * for a source node */
-  #define NODE_ID                       1
-#endif /* FLOCKLAB */
 
 #define LWB_CONF_OUT_BUFFER_SIZE        2
 #define LWB_CONF_USE_LF_FOR_WAKEUP      0

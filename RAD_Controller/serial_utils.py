@@ -11,12 +11,12 @@ def getConnected():
 	return connected
 
 @timeout(10)
-def connect():
+def connect(inPort):
 	global connected
 	global portName
 	global port
 	connected = False
-	portName = '/dev/ttyS0'
+	portName = inPort
 	try:
 		port = serial.Serial(portName)
 		port.timeout = 1
@@ -24,7 +24,7 @@ def connect():
 		connected = True
 		return
 	except (OSError, serial.SerialException):
-		pass
+		print("Connection failure")
 	return
 
 def disconnect(*args):

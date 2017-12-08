@@ -1,5 +1,5 @@
 obj/main.o: main.c header.h ../../RAD_Contiki/core/contiki.h \
- ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h \
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h message.h \
  ../../RAD_Contiki/core/sys/process.h ../../RAD_Contiki/core/sys/pt.h \
  ../../RAD_Contiki/core/sys/lc.h ../../RAD_Contiki/core/sys/lc-switch.h \
  ../../RAD_Contiki/core/sys/cc.h ../../RAD_Contiki/core/sys/autostart.h \
@@ -29,10 +29,10 @@ obj/main.o: main.c header.h ../../RAD_Contiki/core/contiki.h \
  ../../RAD_Contiki/core/dev/xmem.h \
  ../../RAD_Contiki/core/dev/debug-print.h \
  ../../RAD_Contiki/core/dev/fram.h \
- ../../RAD_Contiki/core/dev/serial-line.h config.h message.h drum_utils.h \
+ ../../RAD_Contiki/core/dev/serial-line.h config.h drum_utils.h \
  fifo_utils.h utils.h
 main.c header.h ../../RAD_Contiki/core/contiki.h :
- ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h :
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h message.h :
  ../../RAD_Contiki/core/sys/process.h ../../RAD_Contiki/core/sys/pt.h :
  ../../RAD_Contiki/core/sys/lc.h ../../RAD_Contiki/core/sys/lc-switch.h :
  ../../RAD_Contiki/core/sys/cc.h ../../RAD_Contiki/core/sys/autostart.h :
@@ -62,5 +62,5 @@ main.c header.h ../../RAD_Contiki/core/contiki.h :
  ../../RAD_Contiki/core/dev/xmem.h :
  ../../RAD_Contiki/core/dev/debug-print.h :
  ../../RAD_Contiki/core/dev/fram.h :
- ../../RAD_Contiki/core/dev/serial-line.h config.h message.h drum_utils.h :
+ ../../RAD_Contiki/core/dev/serial-line.h config.h drum_utils.h :
  fifo_utils.h utils.h :

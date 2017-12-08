@@ -11,6 +11,10 @@ volatile uint8_t gotUartMessage = 0; 	// set in interrupt handler when new UART 
 static volatile uint32_t virtualClock = 0;
 volatile uint8_t uartMessage[6]; 	// set in interrupt handler
 static uint8_t sentSchdlMsg[6];		// used to make sure SCHDL messages get ACKs TODO(low priority)
+static char debugStr[50];
+
+// Functions
+int rx_handler(unsigned char c);
 
 PROCESS(main_process, "Main Task");
 AUTOSTART_PROCESSES(&main_process);
@@ -30,7 +34,6 @@ PROCESS_THREAD(main_process, ev, data)
 
 	// Begin status logging
 	statusLog("Starting up the system RAD_TEAM");
-	static int loopCount = 0;
 
 	// Set up virtual clock timer
 	TA1CTL = TASSEL0 + TAIE + MC0; // ACLK @ 32 kHz
@@ -39,44 +42,42 @@ PROCESS_THREAD(main_process, ev, data)
 	static uint32_t sentTime;
 
 	// Start receiving over radio
-	static uint8_t oldReceivedMsg[50] = "" ;
-	static uint8_t msg[50] = "";
+	static uint8_t msg[10] = "";
+	static uint8_t oldMsgCnt = -1;
+	static uint8_t newMsgCnt = -1;
 	rf1a_start_rx();
 	
-	//TODO: set up UART
-	
+	// set up UART - register handler function to contiki's uart code
+	uart_set_input_handler(rx_handler);
 
 	// Set up the ack timer to a given interval..? but don't run it yet...
 	//TODO(low priority)
 
 	while(1)
 	{
-		kickWatchdog();
-		// Status log TODO: needed?
-		loopCount++;	
-		char counterStr[50];
-		//sprintf(counterStr,"System has been running for %d seconds.",loopCount);
-		//statusLog(counterStr);
+		kickWatchdog(); //TODO
 
 		// Process received wizzimote messages
-		getReceivedMessage(msg);
-		if(strcmp(msg,oldReceivedMsg) != 0)
+		getReceivedMessage(msg, &newMsgCnt);
+		if(newMsgCnt != oldMsgCnt)
 		{
-			strcpy(oldReceivedMsg,msg);
+			Y_T();
+			oldMsgCnt = newMsgCnt;
 			if(msg[0] == (CLKREQ | ACK))
 			{
-				// calculate difference
 				uint8_t destID = msg[1];
+				// calculate difference
 				uint32_t slaveTime = *((uint32_t*)(&msg[2]));
 				uint32_t diff = ((sentTime + virtualClock) / 2) - slaveTime;
-				// send SETCLK msg
+				// setup SETCLK msg
 				char returnMsg[6];
 				returnMsg[0] = SETCLK;
-				*((uint32_t*)(&returnMsg[2])) = diff;  //TODO: right?
-				unicast_send(returnMsg,6, 5); //TODO: set dest ID
-				char debugStr[50];
-				sprintf(debugStr,"Sending update message %d, %d, %d", returnMsg[0], returnMsg[1], 
-						(*((uint32_t*)(&returnMsg[2]))) );
+				*((uint32_t*)(&returnMsg[2])) = diff;
+				// send SETCLK msg
+				unicast_send(returnMsg,6, destID);
+				// debug info
+				sprintf(debugStr,"Sent update message %d, %d, %d", 
+					returnMsg[0], returnMsg[1], (*((uint32_t*)(&returnMsg[2]))) );
 				debugLog(debugStr);
 			}
 			else if(msg[0] == (ACK))
@@ -84,6 +85,7 @@ PROCESS_THREAD(main_process, ev, data)
 				//sentSchdlMsg TODO(low priority)
 			}
 		}
+
 		//GENERATE MESSAGES FOR TESTING
 		static int cnt = 500;
 		static int newCnt = 500;
@@ -101,15 +103,19 @@ PROCESS_THREAD(main_process, ev, data)
 		uartMessage[0] = SCHDL;
 		uartMessage[1] = SNARE;
 		
+		UCA0IE |= UCRXIE;
+		
 		// Process received UART messages
 		if(gotUartMessage)
-		{	Y_T();
+		{	
+			G_T();
+			gotUartMessage = 0;
 			// Set clock message
 			if(uartMessage[0] == SETCLK)
 			{
 				//TODO: disable interrupts
 				virtualClock = *((uint32_t*)(&uartMessage[2]));
-				timeToSync = 1; // sync now since clock changed
+				//timeToSync = 1; // sync now since clock changed?
 			}
 			// Schedule message
 			else if(uartMessage[0] == SCHDL)
@@ -117,40 +123,36 @@ PROCESS_THREAD(main_process, ev, data)
 				//store into sentSchdlMsg TODO(low priority)
 				//int i=0;
 				//for(i=0; i<6; i++){ sentSchdlMsg[i] = uartMessage[i]; }
-				//start ack timer TODO(low priority)
+				//start ack timer...
 				broadcast_send(uartMessage, 6);
-				char debugStr[50];
-				sprintf(debugStr,"Sending schedule message %d, %d, %d", uartMessage[0], uartMessage[1], 
-						(*((uint32_t*)(&uartMessage[2]))) );
+				// debug info
+				sprintf(debugStr,"Sent schedule message %d, %d, %d", 
+					uartMessage[0], uartMessage[1], (*((uint32_t*)(&uartMessage[2]))) );
 				debugLog(debugStr);
 			}
 			// Play now message
 			else if(uartMessage[0] == 0x0)
 			{
-				unicast_send(uartMessage, 6, 5); //TODO	
-				char debugStr[50];
-				sprintf(debugStr,"Sending hit now message %d, %d, %d", uartMessage[0], uartMessage[1], *((uint32_t*)(&uartMessage[2])));
+				broadcast_send(uartMessage, 6);	
+				// debug info
+				sprintf(debugStr,"Sent hit now message %d, %d, %d", 
+					uartMessage[0], uartMessage[1], *((uint32_t*)(&uartMessage[2])));
 				debugLog(debugStr);
 			}
-			gotUartMessage = 0;
 		}
 
 		// Synchronize wizzimotes
 		if(timeToSync)
 		{
+			timeToSync = 0;
 			uint8_t msg[6];
 			msg[0] = CLKREQ;
 			broadcast_send(msg, 6);
-			char debugStr[50];
-			sprintf(debugStr,"Sending sync message %d, %d, %d", msg[0], msg[1], 
-						(*((uint32_t*)(&msg[2]))) );	
+			sentTime = virtualClock; //TODO: disable interrupts
+			// debug info
+			sprintf(debugStr,"Sent sync message %d, %d, %d", 
+				msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );	
 			debugLog(debugStr);
-			//TODO: disable interrupts
-			sentTime = virtualClock;
-			timeToSync = 0;
-			//char debugStr[50];
-			sprintf(debugStr,"Synchronizing at virtual clock val %d", virtualClock);
-			//debugLog(debugStr);
 		}
 	} //end while loop
 	PROCESS_END();
@@ -164,7 +166,50 @@ __interrupt void Timer1A0ISR(void)
 	{ 
 		timeToSync = 1;
 	}
-	char debugStr[50];
 	sprintf(debugStr,"In the interrupt, clock is %d", virtualClock);
 	//debugLog(debugStr);
+}
+
+#define IDLE 0
+#define DATA 1
+#define CHKSUM 2
+#define START_BYTE 0xFF
+volatile static uint8_t dataCnt = 0;
+volatile static uint8_t checksum = 0;
+volatile static uint8_t state = IDLE;
+volatile static uint8_t workingMessage[6];
+int rx_handler(unsigned char c)
+{
+	uint8_t byte = (uint8_t)c;
+	//debug info
+	sprintf(debugStr,"Received UART character %d", byte);
+	debugLog(debugStr);
+	//receive msg state machine
+	if(state == IDLE)
+	{
+		if(byte == START_BYTE)
+		{
+			state = DATA;
+			dataCnt = 0;
+			checksum = 0;
+		}
+	}
+	else if(state == DATA)
+	{
+		workingMessage[dataCnt] = byte;
+		dataCnt++;
+		checksum += byte;
+		if(dataCnt >= 6){ state = CHKSUM; }
+	}
+	else if(state == CHKSUM)
+	{
+		if(checksum == byte)
+		{
+			gotUartMessage = 1;
+			int i=0; for(i=0; i<6; i++){ uartMessage[i] = workingMessage[i]; }
+			debugLog("Received a full UART message!");
+		}
+		state = IDLE;
+	}
+	return 0;
 }

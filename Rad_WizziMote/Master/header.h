@@ -5,14 +5,12 @@
 #include "platform.h"
 #include "dev/serial-line.h"
 #include "config.h"
-#include "message.h"
 
 //DEBUG flag: set 1 to print debug info
 #define DEBUG 1
 
-//Change this to change the instrument: BASS, FLTOM, LOTOM, HITOM, SNARE, HIHAT, CYMBAL
-#define MY_ID FLTOM
-//NOTE: also need to change node id in config.h...
+#define MY_ID NODE_ID
+//NOTE: change drum ID in config.h
 
 
 //LED helpers

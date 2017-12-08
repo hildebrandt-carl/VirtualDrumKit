@@ -1,7 +1,7 @@
 obj/serial-line.o: ../../RAD_Contiki/core/dev/serial-line.c \
  ../../RAD_Contiki/core/dev/serial-line.h \
  ../../RAD_Contiki/core/contiki.h \
- ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h \
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h message.h \
  ../../RAD_Contiki/core/sys/process.h ../../RAD_Contiki/core/sys/pt.h \
  ../../RAD_Contiki/core/sys/lc.h ../../RAD_Contiki/core/sys/lc-switch.h \
  ../../RAD_Contiki/core/sys/cc.h ../../RAD_Contiki/core/sys/autostart.h \
@@ -34,7 +34,7 @@ obj/serial-line.o: ../../RAD_Contiki/core/dev/serial-line.c \
 ../../RAD_Contiki/core/dev/serial-line.c :
  ../../RAD_Contiki/core/dev/serial-line.h :
  ../../RAD_Contiki/core/contiki.h :
- ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h :
+ ../../RAD_Contiki/mcu/cc430/contiki-conf.h config.h message.h :
  ../../RAD_Contiki/core/sys/process.h ../../RAD_Contiki/core/sys/pt.h :
  ../../RAD_Contiki/core/sys/lc.h ../../RAD_Contiki/core/sys/lc-switch.h :
  ../../RAD_Contiki/core/sys/cc.h ../../RAD_Contiki/core/sys/autostart.h :
