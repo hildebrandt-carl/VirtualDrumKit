@@ -86,26 +86,8 @@ PROCESS_THREAD(main_process, ev, data)
 			}
 		}
 
-		//GENERATE MESSAGES FOR TESTING
-		static int cnt = 500;
-		static int newCnt = 500;
-		while(virtualClock % 16 == 0 && virtualClock < 200){ 
-			gotUartMessage = 1; 
-			*((uint32_t*)(&uartMessage[2])) = cnt;
-			newCnt = cnt+4;
-		}
-		while(virtualClock % 16 == 8 && virtualClock < 200){ 
-			gotUartMessage = 1; 
-			*((uint32_t*)(&uartMessage[2])) = cnt;
-			newCnt = cnt+12;
-		}
-		cnt = newCnt;
-		uartMessage[0] = SCHDL;
-		uartMessage[1] = SNARE;
-		
-		UCA0IE |= UCRXIE;
-		
 		// Process received UART messages
+		UCA0IE |= UCRXIE;
 		if(gotUartMessage)
 		{	
 			G_T();
@@ -180,6 +162,7 @@ volatile static uint8_t state = IDLE;
 volatile static uint8_t workingMessage[6];
 int rx_handler(unsigned char c)
 {
+	R_T();
 	uint8_t byte = (uint8_t)c;
 	//debug info
 	sprintf(debugStr,"Received UART character %d", byte);
@@ -208,6 +191,8 @@ int rx_handler(unsigned char c)
 			gotUartMessage = 1;
 			int i=0; for(i=0; i<6; i++){ uartMessage[i] = workingMessage[i]; }
 			debugLog("Received a full UART message!");
+		}else{
+			debugLog("UART checksum failed.");
 		}
 		state = IDLE;
 	}

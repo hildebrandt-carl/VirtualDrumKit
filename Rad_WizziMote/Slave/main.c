@@ -41,8 +41,8 @@ PROCESS_THREAD(main_process, ev, data)
 
 	// Start receiving over radio
 	static uint8_t msg[10] = "";
-	static uint8_t oldMsgCnt = -1;
-	static uint8_t newMsgCnt = -1;
+	static uint8_t oldMsgCnt = 0;
+	static uint8_t newMsgCnt = 0;
 	rf1a_start_rx();
 
 	// Set up motor output
@@ -52,7 +52,6 @@ PROCESS_THREAD(main_process, ev, data)
 
 	while(1)
 	{
-
 		kickWatchdog(); //TODO
 
 		// Process received wizzimote messages

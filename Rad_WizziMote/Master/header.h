@@ -7,7 +7,7 @@
 #include "config.h"
 
 //DEBUG flag: set 1 to print debug info
-#define DEBUG 1
+#define DEBUG 0
 
 #define MY_ID NODE_ID
 //NOTE: change drum ID in config.h

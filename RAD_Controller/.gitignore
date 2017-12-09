@@ -5,6 +5,7 @@
 *.hex
 *.exe
 *.b64
+*.pyc
 
 # add an exception (using !) to the preceding rule to track a specific file
 #!package.json
