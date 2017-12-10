@@ -7,6 +7,7 @@
 #define CLKREQ (1<<5)
 #define SETCLK (1<<4)
 #define SCHDL  (1<<3)
+#define CANCEL (1<<2)
 
 // DRUMS BYTE (byte 1)
 #define BASS   (1<<7)

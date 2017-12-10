@@ -3,14 +3,12 @@
 #include <stdio.h>
 
 // Timer variables
-volatile uint8_t timeToSync = 0; 	// set in interrupt handler when it is time to synchronize wizzimotes
-volatile uint8_t ackTimerUp = 0; 	// set in interrupt handler when ACK timer expires TODO(low priority)
+volatile uint8_t syncID = 0; 		// set in interrupt handler when it is time to synchronize wizzimote with given ID
 volatile uint8_t gotUartMessage = 0; 	// set in interrupt handler when new UART message has arrived
 
 // Other variables
 static volatile uint32_t virtualClock = 0;
 volatile uint8_t uartMessage[6]; 	// set in interrupt handler
-static uint8_t sentSchdlMsg[6];		// used to make sure SCHDL messages get ACKs TODO(low priority)
 static char debugStr[50];
 
 // Functions
@@ -33,7 +31,7 @@ PROCESS_THREAD(main_process, ev, data)
 	Y_OFF(); Y_OUT();
 
 	// Begin status logging
-	statusLog("Starting up the system RAD_TEAM");
+	//statusLog("Starting up the system RAD_TEAM");
 
 	// Set up virtual clock timer
 	TA1CTL = TASSEL0 + TAIE + MC0; // ACLK @ 32 kHz
@@ -43,15 +41,12 @@ PROCESS_THREAD(main_process, ev, data)
 
 	// Start receiving over radio
 	static uint8_t msg[10] = "";
-	static uint8_t oldMsgCnt = -1;
-	static uint8_t newMsgCnt = -1;
+	static uint8_t oldMsgCnt = 0;
+	static uint8_t newMsgCnt = 0;
 	rf1a_start_rx();
 	
 	// set up UART - register handler function to contiki's uart code
 	uart_set_input_handler(rx_handler);
-
-	// Set up the ack timer to a given interval..? but don't run it yet...
-	//TODO(low priority)
 
 	while(1)
 	{
@@ -76,14 +71,22 @@ PROCESS_THREAD(main_process, ev, data)
 				// send SETCLK msg
 				unicast_send(returnMsg,6, destID);
 				// debug info
-				sprintf(debugStr,"Sent update message %d, %d, %d", 
-					returnMsg[0], returnMsg[1], (*((uint32_t*)(&returnMsg[2]))) );
+				sprintf(debugStr,"Sent update message %d, %d, %d", returnMsg[0], returnMsg[1], (*((uint32_t*)(&returnMsg[2]))) );
 				debugLog(debugStr);
 			}
-			else if(msg[0] == (ACK))
-			{
-				//sentSchdlMsg TODO(low priority)
-			}
+		}
+
+		// Synchronize wizzimotes
+		if(syncID != 0)
+		{
+			uint8_t msg[6];
+			msg[0] = CLKREQ;
+			unicast_send(msg, 6, syncID);
+			sentTime = virtualClock; //TODO: disable interrupts
+			syncID = 0;
+			// debug info
+			sprintf(debugStr,"Sent sync message %d, %d, %d", msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );	
+			debugLog(debugStr);
 		}
 
 		// Process received UART messages
@@ -95,21 +98,24 @@ PROCESS_THREAD(main_process, ev, data)
 			// Set clock message
 			if(uartMessage[0] == SETCLK)
 			{
-				//TODO: disable interrupts
-				virtualClock = *((uint32_t*)(&uartMessage[2]));
-				//timeToSync = 1; // sync now since clock changed?
+				virtualClock = *((uint32_t*)(&uartMessage[2])); //TODO: disable interrupts
+				// debug info
+				sprintf(debugStr,"Got set clock message %d, %d, %d", uartMessage[0], uartMessage[1], (*((uint32_t*)(&uartMessage[2]))) );
+				debugLog(debugStr);
 			}
 			// Schedule message
 			else if(uartMessage[0] == SCHDL)
 			{
-				//store into sentSchdlMsg TODO(low priority)
-				//int i=0;
-				//for(i=0; i<6; i++){ sentSchdlMsg[i] = uartMessage[i]; }
-				//start ack timer...
 				broadcast_send(uartMessage, 6);
 				// debug info
-				sprintf(debugStr,"Sent schedule message %d, %d, %d", 
-					uartMessage[0], uartMessage[1], (*((uint32_t*)(&uartMessage[2]))) );
+				sprintf(debugStr,"Sent schedule message %d, %d, %d", uartMessage[0], uartMessage[1], (*((uint32_t*)(&uartMessage[2]))) );
+				debugLog(debugStr);
+			}
+			// Cancel message
+			else if(uartMessage[0] == CANCEL){
+				broadcast_send(uartMessage, 6);
+				// debug info
+				sprintf(debugStr,"Sent cancel message %d, %d, %d", uartMessage[0], uartMessage[1], (*((uint32_t*)(&uartMessage[2]))) );
 				debugLog(debugStr);
 			}
 			// Play now message
@@ -117,25 +123,11 @@ PROCESS_THREAD(main_process, ev, data)
 			{
 				broadcast_send(uartMessage, 6);	
 				// debug info
-				sprintf(debugStr,"Sent hit now message %d, %d, %d", 
-					uartMessage[0], uartMessage[1], *((uint32_t*)(&uartMessage[2])));
+				sprintf(debugStr,"Sent hit now message %d, %d, %d", uartMessage[0], uartMessage[1], *((uint32_t*)(&uartMessage[2])));
 				debugLog(debugStr);
 			}
 		}
 
-		// Synchronize wizzimotes
-		if(timeToSync)
-		{
-			timeToSync = 0;
-			uint8_t msg[6];
-			msg[0] = CLKREQ;
-			broadcast_send(msg, 6);
-			sentTime = virtualClock; //TODO: disable interrupts
-			// debug info
-			sprintf(debugStr,"Sent sync message %d, %d, %d", 
-				msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );	
-			debugLog(debugStr);
-		}
 	} //end while loop
 	PROCESS_END();
 }
@@ -144,9 +136,17 @@ PROCESS_THREAD(main_process, ev, data)
 __interrupt void Timer1A0ISR(void)
 {
 	virtualClock++;
-	if(virtualClock % 64 == 0)
-	{ 
-		timeToSync = 1;
+	int num = virtualClock % 64;
+	switch(num)
+	{
+		case 0:  syncID = BASS;  break;
+		case 8:  syncID = FLTOM; break;
+		case 16: syncID = LOTOM; break;
+		case 24: syncID = HITOM; break;
+		case 32: syncID = SNARE; break;
+		case 40: syncID = HIHAT; break;
+		case 48: syncID = CYMBAL; break;
+
 	}
 	sprintf(debugStr,"In the interrupt, clock is %d", virtualClock);
 	//debugLog(debugStr);

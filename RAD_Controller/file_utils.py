@@ -6,7 +6,7 @@ import time
 def sendFile(*args):
 
 	# reset virtual clocks to 5 seconds before time 0, when the pattern will start
-	sendMessage(16,0,(pow(2,32)-64))
+	sendMessage(16,0,500) #(pow(2,32)-64))
 	time.sleep(2)
 
 	# open and read the file data
@@ -19,8 +19,8 @@ def sendFile(*args):
 		list = line.split(',')
 		if list[1]:
 			drums = list[1].split('+')
+                        d = 0
 			for drum in drums:
-				d = 0
 				if drum == 'BASS':     # (1<<7) = 128
 					d = d + 128
 				elif drum == 'FLTOM':  # (1<<6) = 64

@@ -20,8 +20,8 @@ PROCESS_THREAD(main_process, ev, data)
 {
 	PROCESS_BEGIN();	
 	
-	// Sets up the watchdog timer to use ACLK input and an interval of 16s TODO: shorter interval?
-	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS1 + WDTIS0;
+	// Sets up the watchdog timer to use ACLK input and an interval of 1s TODO: okay?
+	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS2; //WDTID1 + WDTIS0 for 16s
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW; 	// Start the watchdog
 
 	// Turn off LEDs and init as outputs
@@ -69,8 +69,7 @@ PROCESS_THREAD(main_process, ev, data)
 				*((uint32_t*)(&returnMsg[2])) = virtualClock;  //TODO: disable interrupts
 				unicast_send(returnMsg,6, 0xF);
 				//debug info
-				sprintf(debugStr,"Sent CLKREQ ACK message %d, %d, %d", 
-					returnMsg[0], returnMsg[1], (*((uint32_t*)(&returnMsg[2]))) );
+				sprintf(debugStr,"Sent CLKREQ ACK message %d, %d, %d", returnMsg[0], returnMsg[1], (*((uint32_t*)(&returnMsg[2]))) );
 				debugLog(debugStr);
 			}
 			else if(msg[0] == SETCLK) // set clock message, for synchronization
@@ -80,25 +79,32 @@ PROCESS_THREAD(main_process, ev, data)
 				//debug info
 				sprintf(debugStr,"Received SETCLK message %d, %d, %d", 
 					msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );
-				debugLog(debugStr);
+				//debugLog(debugStr);
 			}
 			else if(msg[0] == SCHDL) // schedule message, for playing drums
 			{
-				//debug info
-				sprintf(debugStr,"Received SCHDL message %d, %d, %d", 
-					msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );
-				debugLog(debugStr);
 				// if this drum's bit is set, add to FIFO queue
-				if((msg[1] & MY_ID) != 0){
+				if((msg[1] & MY_ID) != 0x0){
 					writeFifo(*((uint32_t*)(&msg[2])));
-					debugLog("Added a message to the FIFO queue");
+					sprintf(debugStr,"Added a message to the FIFO queue: %d", (*((uint32_t*)(&msg[2]))) );
+					debugLog(debugStr);
 				}
+				//debug info
+				sprintf(debugStr,"Received SCHDL message %d, %d, %d", msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );
+				//debugLog(debugStr);
+			}
+			else if(msg[0] == CANCEL)
+			{
+				// cancel all scheduled hits by clearing the fifo queue
+				clearFifo();
+				//debug info
+				sprintf(debugStr,"Received CANCEL message %d, %d, %d", msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );
+				//debugLog(debugStr);
 			}
 			else if(msg[0] == 0x0) // hit now message, for playing drums
 			{
 				//debug info
-				sprintf(debugStr,"Received hit message %d, %d, %d", 
-					msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );
+				sprintf(debugStr,"Received hit message %d, %d, %d", msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );
 				debugLog(debugStr);
 				// if this drum's bit is set, play now
 				if((msg[1] & MY_ID) != 0){
