@@ -29,8 +29,6 @@ PROCESS_THREAD(main_process, ev, data)
 	R_OFF(); R_OUT();
 	Y_OFF(); Y_OUT();
 
-	G_ON();
-
 	// Begin status logging
 	statusLog("Starting up the system RAD_TEAM");
 
@@ -52,7 +50,7 @@ PROCESS_THREAD(main_process, ev, data)
 
 	while(1)
 	{
-		kickWatchdog(); //TODO
+		kickWatchdog();
 
 		// Process received wizzimote messages
 		getReceivedMessage(msg, &newMsgCnt);
@@ -116,8 +114,8 @@ PROCESS_THREAD(main_process, ev, data)
 
 		// Check for a scheduled hit
 		uint32_t clk;
-		peekFifo(&clk);
-		if(clk == virtualClock){
+		int failure = peekFifo(&clk);
+		if(!failure && (clk == virtualClock)){
 			playNow = 1;
 			readFifo(&clk);
 			debugLog("Playing from the FIFO queue.");
@@ -155,6 +153,7 @@ PROCESS_THREAD(main_process, ev, data)
 		#endif
 		// Play drum, if applicable
 		if(playNow == 1){
+			R_T();
 			playNow = 0;
 			if(stickStatus == READY){
 				hitDrum(1);
@@ -176,13 +175,11 @@ void updateClock(uint32_t adjustment){
 	// if skipping forward, discard any skipped entries from FIFO queue 
 	if(newValue > oldValue){
 		uint32_t clk;
-		if(!peekFifo(&clk))
-		{
-			while(clk < newValue){
-				playNow = 1;    // if we skip an entry, play now to make up for it
-				readFifo(&clk); // discard skipped entry
-				peekFifo(&clk); // peek next entry
-			}
+		int failure = peekFifo(&clk);
+		while(!failure && (clk < newValue)){
+			playNow = 1;    // if we skip an entry, play now to make up for it
+			readFifo(&clk); // discard skipped entry
+			failure = peekFifo(&clk); // peek next entry
 		}
 	}
 	virtualClock = newValue; // update clock
@@ -192,4 +189,5 @@ void updateClock(uint32_t adjustment){
 __interrupt void Timer1A0ISR(void)
 {
 	virtualClock++;
+	if(virtualClock % 32 == 0){ G_T(); } // heart beat
 }

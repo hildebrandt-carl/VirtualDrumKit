@@ -21,8 +21,8 @@ PROCESS_THREAD(main_process, ev, data)
 {
 	PROCESS_BEGIN();	
 	
-	// Sets up the watchdog timer to use ACLK input and an interval of 16s TODO: shorter interval?
-	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS1 + WDTIS0;
+	// Sets up the watchdog timer to use ACLK input and an interval of 1s TODO: okay?
+	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS2; //WDTIS1 + WDTIS0; for 16 s
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW; 	// Start the watchdog
 
 	// Turn off LEDs and init as outputs
@@ -50,7 +50,7 @@ PROCESS_THREAD(main_process, ev, data)
 
 	while(1)
 	{
-		kickWatchdog(); //TODO
+		kickWatchdog();
 
 		// Process received wizzimote messages
 		getReceivedMessage(msg, &newMsgCnt);
@@ -93,7 +93,7 @@ PROCESS_THREAD(main_process, ev, data)
 		UCA0IE |= UCRXIE;
 		if(gotUartMessage)
 		{	
-			G_T();
+			R_T();
 			gotUartMessage = 0;
 			// Set clock message
 			if(uartMessage[0] == SETCLK)
@@ -139,13 +139,13 @@ __interrupt void Timer1A0ISR(void)
 	int num = virtualClock % 64;
 	switch(num)
 	{
-		case 0:  syncID = BASS;  break;
-		case 8:  syncID = FLTOM; break;
-		case 16: syncID = LOTOM; break;
-		case 24: syncID = HITOM; break;
-		case 32: syncID = SNARE; break;
-		case 40: syncID = HIHAT; break;
-		case 48: syncID = CYMBAL; break;
+		case 0:  syncID = BASS;  G_T(); break;
+		case 8:  syncID = FLTOM;  	break;
+		case 16: syncID = LOTOM; 	break;
+		case 24: syncID = HITOM; 	break;
+		case 32: syncID = SNARE; G_T(); break;
+		case 40: syncID = HIHAT; 	break;
+		case 48: syncID = CYMBAL; 	break;
 
 	}
 	sprintf(debugStr,"In the interrupt, clock is %d", virtualClock);
@@ -162,7 +162,6 @@ volatile static uint8_t state = IDLE;
 volatile static uint8_t workingMessage[6];
 int rx_handler(unsigned char c)
 {
-	R_T();
 	uint8_t byte = (uint8_t)c;
 	//debug info
 	sprintf(debugStr,"Received UART character %d", byte);

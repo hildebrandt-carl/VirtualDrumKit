@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<link rel="icon" href="favicon.png" type="image/png"/>
+<link rel="shortcut icon" href="favicon.png" type="image/png"/>
+<script src="https://use.fontawesome.com/9bf9e2bce7.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+#colorstrip
+{
+    width: 100%; height: 2px;
+    border-style: solid;
+    border-color: #3498DB;
+    background-color: #3498DB;
+}
+
+#headerBar {
+    height: 40px;
+    background: #3498DB;
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: -1
+}
+
+/* unvisited link - blue */
+a:link {
+    color: #3498DB;
+}
+
+/* visited link - green */
+a:visited {
+    color: green;
+}
+
+/* mouse over link - light blue */
+a:hover {
+    color: #99ddff;
+}
+
+/* selected link - light green */
+a:active {
+    color: #82BF56;
+} 
+
+div.textbox {
+	border-radius: 25px;
+    	position: relative;
+	margin:auto;
+	width: 550px;
+	height: auto;
+	text-align: center;
+    	border: 5px solid #ff9900;
+	background-color: #F2CF66;
+	font-family: Arial;
+	font-size: 20px;
+	font-style: normal;
+	font-variant: bold;
+	font-weight: 500;
+	color: #FFFFFF;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("background.png");
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.center{
+    width: 600px;
+    height: 300px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -300px;
+}
+
+.bottomRight {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 50px;
+    margin-bottom: 20px;
+
+    font-family: Pacifico;
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
+
+    color: #1d89ff;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: white;
+    overflow: hidden;
+
+    font-family: Pacifico;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #1d89ff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: white;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #1d89ff;
+    color: white;
+}
+
+
+</style>
+<!-- START OF HTML PAGE -->
+</head>
+<body>
+<div class="topnav" id="myTopnav">
+  <a class="active" href="http://127.0.0.1:4343/">RAD Team - Home</a>
+  <a href="http://127.0.0.1:4343/Code">The Code</a>
+  <a href="http://127.0.0.1:4343/VRProgram">Download VR</a>
+  <a href="http://127.0.0.1:4343/About">About</a>
+</div>
+
+
+<div class="bg">
+    <div class="center">
+	<div class="textbox">
+	<p><b> This project has five different code modules:</b></p>
+	<p><b> <a href="https://github.com/hildebrandt-carl/RAD_Wizzimote">Wizzimote code</a> </b></p>
+	<p><b> <a href="https://github.com/hildebrandt-carl/RAD_Controller">Rasbperry Pi (Drumset controller) code</a> </b></p>
+	<p><b> <a href="https://github.com/hildebrandt-carl/RAD_Server">Webserver code</a> </b></p>
+	<p><b> <a href="https://github.com/hildebrandt-carl/RAD_Website">Website code</a> </b></p>
+	<p><b> <a href="https://github.com/hildebrandt-carl/RAD_VirtualReality">Virtual Reality code</a> </b></p>
+	</div>
+
+    </div>
+    <div class="bottomRight">
+        <a>Be like Brock - RAD_Team</a>
+    </div>
+</div>
+
+</body>
+</html>

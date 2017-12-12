@@ -37,7 +37,7 @@
 #include "message.h"
 
 //Change this to change the instrument: BASS, FLTOM, LOTOM, HITOM, SNARE, HIHAT, CYMBAL
-#define NODE_ID                       BASS
+#define NODE_ID                       CYMBAL
 
 
 /*

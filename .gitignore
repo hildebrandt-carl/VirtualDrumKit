@@ -5,7 +5,7 @@
 *.hex
 *.exe
 *.b64
-*.DS_Store
+*.DS_STORE
 
 # add an exception (using !) to the preceding rule to track a specific file
 #!package.json

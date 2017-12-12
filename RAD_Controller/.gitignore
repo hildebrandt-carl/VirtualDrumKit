@@ -1,4 +1,5 @@
-# ignore a file type
+# add an exception (using !) to the preceding rule to track a specific file
+#!package.json# ignore a file type
 *.o
 *.d
 *.dis
@@ -6,6 +7,8 @@
 *.exe
 *.b64
 *.pyc
+*.pyc
+*.DS_Store
 
 # add an exception (using !) to the preceding rule to track a specific file
 #!package.json
