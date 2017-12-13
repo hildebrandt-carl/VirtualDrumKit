@@ -1,3 +1,6 @@
+#include <msp430.h>
+#include <intrinsics.h>
+
 #include "header.h"
 #include "utils.h"
 #include <stdio.h>
@@ -13,6 +16,8 @@ static char debugStr[50];
 
 // Functions
 int rx_handler(unsigned char c);
+uint32_t getVirtualClock();
+void setVirtualClock(uint32_t value);
 
 PROCESS(main_process, "Main Task");
 AUTOSTART_PROCESSES(&main_process);
@@ -21,8 +26,8 @@ PROCESS_THREAD(main_process, ev, data)
 {
 	PROCESS_BEGIN();	
 	
-	// Sets up the watchdog timer to use ACLK input and an interval of 1s TODO: okay?
-	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS2; //WDTIS1 + WDTIS0; for 16 s
+	// Sets up the watchdog timer to use ACLK input and an interval of 1s
+	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS2; //use WDTIS1 + WDTIS0; for 16 s
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW; 	// Start the watchdog
 
 	// Turn off LEDs and init as outputs
@@ -63,7 +68,7 @@ PROCESS_THREAD(main_process, ev, data)
 				uint8_t destID = msg[1];
 				// calculate difference
 				uint32_t slaveTime = *((uint32_t*)(&msg[2]));
-				uint32_t diff = ((sentTime + virtualClock) / 2) - slaveTime;
+				uint32_t diff = ((sentTime + getVirtualClock()) / 2) - slaveTime;
 				// setup SETCLK msg
 				char returnMsg[6];
 				returnMsg[0] = SETCLK;
@@ -82,7 +87,7 @@ PROCESS_THREAD(main_process, ev, data)
 			uint8_t msg[6];
 			msg[0] = CLKREQ;
 			unicast_send(msg, 6, syncID);
-			sentTime = virtualClock; //TODO: disable interrupts
+			sentTime = getVirtualClock();
 			syncID = 0;
 			// debug info
 			sprintf(debugStr,"Sent sync message %d, %d, %d", msg[0], msg[1], (*((uint32_t*)(&msg[2]))) );	
@@ -98,7 +103,7 @@ PROCESS_THREAD(main_process, ev, data)
 			// Set clock message
 			if(uartMessage[0] == SETCLK)
 			{
-				virtualClock = *((uint32_t*)(&uartMessage[2])); //TODO: disable interrupts
+				setVirtualClock( *((uint32_t*)(&uartMessage[2])) );
 				// debug info
 				sprintf(debugStr,"Got set clock message %d, %d, %d", uartMessage[0], uartMessage[1], (*((uint32_t*)(&uartMessage[2]))) );
 				debugLog(debugStr);
@@ -130,6 +135,20 @@ PROCESS_THREAD(main_process, ev, data)
 
 	} //end while loop
 	PROCESS_END();
+}
+
+// disable interrupts around virtual clock access
+uint32_t getVirtualClock(){
+	__bic_status_register(GIE);
+	uint32_t ret = virtualClock;
+	__bis_status_register(GIE);
+	return ret;
+}
+void setVirtualClock(uint32_t value){
+	__bic_status_register(GIE);
+	virtualClock = value;
+	__bis_status_register(GIE);
+	return;
 }
 
 #pragma vector = TIMER1_A0_VECTOR

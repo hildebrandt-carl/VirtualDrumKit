@@ -6,6 +6,14 @@
 *.exe
 *.b64
 *.DS_Store
+/RADTeamDrumset-Unity/Library/*
+/RADTeamDrumset-Unity/Builds/*
+/RADTeamDrumset-Unity/ProjectSettings/*
+/RADTeamDrumset-Unity/Service References/*
+/RADTeamDrumset-Unity/Drumset.csproj
+/RADTeamDrumset-Unity/Drumset.Editor.csproj
+/RAD_VirtualReality/RADTeamDrumset-Unity/.vs/*
+/RAD_VirtualReality/RADTeamDrumset-Unity/Drumset.sln
 
 # add an exception (using !) to the preceding rule to track a specific file
 #!package.json

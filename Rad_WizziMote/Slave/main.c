@@ -1,3 +1,6 @@
+#include <msp430.h>
+#include <intrinsics.h>
+
 #include <stdio.h>
 #include "header.h"
 #include "drum_utils.h"
@@ -12,6 +15,8 @@ static char debugStr[50];
 
 // Functions
 void updateClock();
+uint32_t getVirtualClock();
+void setVirtualClock(uint32_t value);
 
 PROCESS(main_process, "Main Task");
 AUTOSTART_PROCESSES(&main_process);
@@ -20,8 +25,8 @@ PROCESS_THREAD(main_process, ev, data)
 {
 	PROCESS_BEGIN();	
 	
-	// Sets up the watchdog timer to use ACLK input and an interval of 1s TODO: okay?
-	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS2; //WDTID1 + WDTIS0 for 16s
+	// Sets up the watchdog timer to use ACLK input and an interval of 1s
+	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS2; //use WDTID1 + WDTIS0 for 16s
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW; 	// Start the watchdog
 
 	// Turn off LEDs and init as outputs
@@ -64,7 +69,7 @@ PROCESS_THREAD(main_process, ev, data)
 				char returnMsg[6];
 				returnMsg[0] = CLKREQ | ACK;
 				returnMsg[1] = MY_ID;
-				*((uint32_t*)(&returnMsg[2])) = virtualClock;  //TODO: disable interrupts
+				*((uint32_t*)(&returnMsg[2])) = getVirtualClock();
 				unicast_send(returnMsg,6, 0xF);
 				//debug info
 				sprintf(debugStr,"Sent CLKREQ ACK message %d, %d, %d", returnMsg[0], returnMsg[1], (*((uint32_t*)(&returnMsg[2]))) );
@@ -115,7 +120,7 @@ PROCESS_THREAD(main_process, ev, data)
 		// Check for a scheduled hit
 		uint32_t clk;
 		int failure = peekFifo(&clk);
-		if(!failure && (clk == virtualClock)){
+		if(!failure && (clk == getVirtualClock())){
 			playNow = 1;
 			readFifo(&clk);
 			debugLog("Playing from the FIFO queue.");
@@ -126,13 +131,13 @@ PROCESS_THREAD(main_process, ev, data)
 		static uint32_t retractTime = 0;
 		static uint8_t stickStatus = READY;
 		#ifdef SINGLE_STICK
-			if(virtualClock == retractTime)
+			if(getVirtualClock() == retractTime)
 			{
 				if(stickStatus == HIT)
 				{
 					hitDrum(0);
 					stickStatus = RETRACTED;
-					retractTime = virtualClock + (COOLDOWN*64);
+					retractTime = getVirtualClock() + (COOLDOWN*64);
 					debugLog("Retracted the drum stick.");
 				}
 				else if(stickStatus == RETRACTED)
@@ -142,7 +147,7 @@ PROCESS_THREAD(main_process, ev, data)
 				}
 			}
 		#else
-			if(virtualClock == retractTime)
+			if(getVirtualClock() == retractTime)
 			{
 				if(stickStatus == HIT)
 				{
@@ -158,7 +163,7 @@ PROCESS_THREAD(main_process, ev, data)
 			if(stickStatus == READY){
 				hitDrum(1);
 				stickStatus = HIT;
-				retractTime = virtualClock + (COOLDOWN*64);
+				retractTime = getVirtualClock() + (COOLDOWN*64);
 				debugLog("Played the drum.");
 			}else{
 				debugLog("Did not play because not ready.");
@@ -169,7 +174,7 @@ PROCESS_THREAD(main_process, ev, data)
 }
 
 void updateClock(uint32_t adjustment){
-	uint32_t oldValue = virtualClock; //TODO: disable interrupts
+	uint32_t oldValue = getVirtualClock();
 	uint32_t newValue = oldValue + adjustment;
 
 	// if skipping forward, discard any skipped entries from FIFO queue 
@@ -182,7 +187,21 @@ void updateClock(uint32_t adjustment){
 			failure = peekFifo(&clk); // peek next entry
 		}
 	}
-	virtualClock = newValue; // update clock
+	setVirtualClock(newValue); // update clock
+}
+
+// disable interrupts around virtual clock access
+uint32_t getVirtualClock(){
+	__bic_status_register(GIE);
+	uint32_t ret = virtualClock;
+	__bis_status_register(GIE);
+	return ret;
+}
+void setVirtualClock(uint32_t value){
+	__bic_status_register(GIE);
+	virtualClock = value;
+	__bis_status_register(GIE);
+	return;
 }
 
 #pragma vector = TIMER1_A0_VECTOR
