@@ -21,12 +21,10 @@ catch(err){
 
 
 var nummesg = 10;
-var numusers = 3;
 var vrb = "0";
 var web = "0";
 var con = "0";
 var tim  = "12:12:12";
-//&#10004;	
 
 var server = http.createServer(function(req, resp) 
 {
@@ -44,8 +42,8 @@ var server = http.createServer(function(req, resp)
             }
             else {
                 resp.writeHead(200, { 'Content-Type': 'text/html' });
-		var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, numusers: numusers, vrb: vrb, web: web, con: con, tim: tim});
-		resp.write(renderedHtml);	
+		var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, vrb: vrb, web: web, con: con, tim: tim});
+		resp.write(renderedHtml);
             }
 	    console.log("");
             resp.end();
@@ -158,28 +156,29 @@ console.log("Server is listening");
 s.on('data', function(d)
 {
 	console.log("Received Message From webserver: " + d.toString());
-	if(String(d).substring(0,3) == "ack"){
-		console.log(d.toString());
-	}
-	else if(String(d).substring(0,3) == "meg"){
-		nummesg = parseInt(String(d).substring(3), 10);
-	}
-	else if(String(d).substring(0,3) == "usr"){
-		numusers = parseInt(String(d).substring(3), 10);
-	}
-	else if(String(d).substring(0,3) == "tim"){
-		tim = String(d).substring(3);
-	}
+	var msgs = d.toString().split("#");
+	for (msg of msgs) {
+	    console.log(msg);
+	    if(msg.substring(0,3) == "meg"){
+		nummesg = parseInt(msg.substring(3), 10);
+	    }
+	    else if(msg.substring(0,3) == "usr"){
+		numusers = parseInt(msg.substring(3), 10);
+	    }
+	    else if(msg.substring(0,3) == "tim"){
+		tim = msg.substring(3);
+	    }
 	
-	if(String(d).substring(0,3) == "vrb"){
-		vrb = String(d).substring(3,4);
+	    else if(msg.substring(0,3) == "vrb"){
+		vrb = msg.substring(3,4);
+	    }
+	    else if(msg.substring(0,3) == "web"){
+		web = msg.substring(3,4);
+	    }
+	    else if(msg.substring(0,3) == "con"){
+		con = msg.substring(3,4);
+	    }	
 	}
-	else if(String(d).substring(0,3) == "web"){
-		web = String(d).substring(3,4);
-	}
-	else if(String(d).substring(0,3) == "con"){
-		con = String(d).substring(3,4);
-	}	
 });
 
 function processdrum(req, resp) 

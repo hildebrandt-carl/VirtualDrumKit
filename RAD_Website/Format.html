@@ -3,6 +3,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
+
+<title>RAD_Team</title>
+
 <link rel="icon" href="favicon.png" type="image/png"/>
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
 <script src="https://use.fontawesome.com/9bf9e2bce7.js"></script>
@@ -215,23 +218,22 @@ div.updatevalue {
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-  <a class="active" href="http://127.0.0.1:4343/">RAD Team - Home</a>
-  <a href="http://127.0.0.1:4343/Code">The Code</a>
-  <a href="http://127.0.0.1:4343/VRProgram">Download VR</a>
-  <a href="http://127.0.0.1:4343/About">About</a>
+  <a class="active" href="http://www.rad-team.co.za:4343">RAD Team - Home</a>
+  <a href="http://www.rad-team.co.za:4343/Code">The Code</a>
+  <a href="http://www.rad-team.co.za:4343/VRProgram">Download VR</a>
+  <a href="http://www.rad-team.co.za:4343/About">About</a>
 </div>
 
 <div class="bg">
 	<div class="updatevalue" style="top:1%;">
-	<p id="numdrums" style="line-height: 0.4;"><b>Number of drum strikes so far:  <%= nummesg %></b></p>
-	<p id="users" style="line-height: 0.4;"><b>Number of users connected:  <%= numusers %></b></p>
+	<p id="numdrums" style="line-height: 0.4;"><b>Number of messages exchanged:  <%= nummesg %></b></p>
 	<p id="vrcon" style="line-height: 0.4;"><b>Virtual reality program connected? </b></p>
 	<p id="webcon" style="line-height: 0.4;"><b>Web page connected? </b></p>
 	<p id="concon" style="line-height: 0.4;"><b>Drum set controller connected? </b></p>
 	<p id="onlinetime" style="line-height: 0.4;"><b>Time server has been online:  <%= tim %></b></p>
 	</div>
 	
-	<form action="http://127.0.0.1:4343/" method="post" enctype="multipart/form-data" >
+	<form method="post" enctype="multipart/form-data" >
 		
 		<div class="center">
 		<input type="submit" name="Drum1" value="Bass" 

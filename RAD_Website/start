@@ -1,0 +1,9 @@
+#!/bin/bash
+clear
+
+#Allows the server time to allow other applications enough time to open
+sleep 1
+screen -dmS httpServer ./httpServerStart
+echo "http server now running in a detached screen named httpServer"
+
+$SHELL
